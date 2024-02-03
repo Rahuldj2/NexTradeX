@@ -69,38 +69,41 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
     }
 
     return (
-      
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-       <div className="text-xl font-bold ml-12">
-            Asset id : {asset_id}
-            <br></br>
-            
-            
-            Government Price : {govt_price}
-            <br></br>
-            Asset Type : {asset_type}
-            <br></br>
-            Asset Location : {location}
-        </div>
-            <div className="mt-4">
+
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto flex flex-col bg-red-200">
+
+
+            <div className="text-xl font-bold  bg-red-600">
+                Asset id : {asset_id}
+                <br></br>
+
+
+                Government Price : {govt_price}
+                <br></br>
+                Asset Type : {asset_type}
+                <br></br>
+                Asset Location : {location}
+            </div>
+
+            {/* <div className="mt-4">
                 <label className="block">
                     Area:
                     <br />
                     <input type="text" name="area" value={formData.area} onChange={handleChange} className="border p-1" />
                 </label>
-            </div>
+            </div> */}
 
-            <div className="mt-4">
+            {/* <div className="mt-4">
                 <label className="block">
                     Government Price:
                     <br />
                     <input type="text" name="governmentRice" value={formData.governmentRice} onChange={handleChange} className="border p-1" />
                 </label>
-            </div>
+            </div> */}
 
             <div className="mt-4">
-                <label className="block">
-                    Your Price:
+                <label className="flex flex-col items-center gap-2">
+                    Place Your Price :
                     <br />
                     <input type="text" name="markedPrice" value={formData.markedPrice} onChange={handleChange} className="border p-1" />
                 </label>
@@ -122,7 +125,7 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
 
             </div>
         </form>
-        
+
     );
 };
 
