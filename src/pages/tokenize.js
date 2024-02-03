@@ -12,6 +12,7 @@ import { contractABI, contract_address } from "../../contracts/NewContractDetail
 const Tokenize = () => {
   const{enableWeb3,account,isWeb3Enabled}=useMoralis()
     const [Price,setPrice] = useState('');
+    const[returnedId,setReturnedId]=useState(0)
     useEffect(()=>{
         console.log("HI")
         if (isWeb3Enabled)
@@ -135,7 +136,9 @@ const [error, setError] = useState(null);
               console.log(data);
               if (data.result) {
                 const propertyId= await tokenize()
+                setReturnedId(propertyId)
                 console.log(propertyId)
+                console.log(returnedId)
               }
               else
               {
