@@ -17,6 +17,7 @@ const myAssets = () => {
   const router = useRouter();
   const [form, setForm] = useState(false);
   const [asset, setAsset] = useState(assets);
+
 // const[badiList, setbadiList]= useState([]);
 const [userProperties, setUserProperties] = useState([]);
 
@@ -24,6 +25,7 @@ const [uniqueUserProperties, setUniqueUserProperties] = useState([]);
 
   const { enableWeb3, account, isWeb3Enabled } = useMoralis()
 
+  const[upPropId,setUpId]=useState(0);
   useEffect(() => {
     console.log(uniqueUserProperties)
     //THIS IS THE FINAL OUTPUT
@@ -158,9 +160,40 @@ console.log("res",res);
   })
   const handleClick = async () => {
     console.log("clicked");
-    await getUserProperties();
+    // await getUserProperties();
     const kuch = await fetchData();
     console.log(kuch);
+  }
+
+
+
+
+
+  const { runContractFunction: putForSale} = useWeb3Contract({
+    abi: contractABI,
+    contractAddress: contract_address,
+    functionName: "putForSale",
+    params: { "owner": account ,"productId":upPropId}
+  })
+  
+
+  useEffect(()  => {
+    async function putForSaleFunction(){
+      console.log("upPropId",upPropId);
+        await putForSale();
+     
+    }
+
+    putForSaleFunction();
+  }, [upPropId]);
+
+
+  const handleSellClick= async (property_id)=>{
+    //put for sale from front end
+    
+    setUpId(parseInt(property_id));
+
+
   }
 
 
@@ -224,12 +257,12 @@ console.log("res",res);
                 </ul>
                 <div className="mt-6 mb-2 flex items-center justify-center">
                   <button
-                    onClick={() => router.push('/tokenize')}
+                    onClick={() => {handleSellClick(uniqueUserProperties[index][0])}}
 
                     className="font-medium bg-white border border-violet-900
    text-violet-900 px-6 py-2 rounded-md  hover:bg-violet-900 hover:text-white focus:outline-none focus:ring focus:border-blue-300"
                   >
-                    Tokenize
+                    Sell this Property
                   </button>
                 </div>
               </div>

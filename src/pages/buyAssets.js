@@ -12,6 +12,26 @@ import { contractABI, contract_address } from "../../contracts/NewContractDetail
 
 
 const BuyAssets = () => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const [form, setForm] = useState(false);
   const [assets, setAssets] = useState([]);
   const [passetsid, setAssetid] = useState('');
@@ -147,7 +167,7 @@ const handleClick = (item) => {
       <div className='bg-black text-xxl h-16 text-center font-serif font-bold'>Market Place</div>
 
       <div className='bg-white min-h-screen h-fit p-2 flex flex-wrap items-center justify-around'>
-        {assets.map((item, index) => (
+        {uniqueUserProperties.map((item, index) => (
           <motion.div
             key={index}
             variants={cardVariants}
@@ -160,16 +180,16 @@ const handleClick = (item) => {
             <div className="text-gray-900 mb-4">
               <ul className="list-disc list-inside">
               <li style={{ color: '#0D0D0E' }}>
-                  <span style={{ color: 'grey' }}>{item.propertyTitle}</span>
+                  <span style={{ color: 'grey' }}>{uniqueUserProperties[index][7]}</span>
                 </li>
                 <li style={{ color: '#71717a' }}>
-                  <span style={{ color: 'grey' }}>Asset Id:- {item.asset_id}</span>
+                  <span style={{ color: 'grey' }}>Asset Id:- {uniqueUserProperties[index][0]}</span>
                 </li>
                 <li style={{ color: '#71717a' }}>
-                  <span style={{ color: 'grey' }}>Asset Type:- {item.asset_type}</span>
+                  <span style={{ color: 'grey' }}>Asset Type:- {uniqueUserProperties[index][4]}</span>
                 </li>
                 <li style={{ color: '#71717a' }}>
-                  <span style={{ color: 'grey' }}>Asset Location:- {item.propertyAddress}</span>
+                  <span style={{ color: 'grey' }}>Asset Location:- {uniqueUserProperties[index][6]}</span>
                 </li>
                 
               </ul>
