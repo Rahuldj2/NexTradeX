@@ -17,7 +17,7 @@ const myAssets = () => {
   const router = useRouter();
   const [form, setForm] = useState(false);
   const [asset, setAsset] = useState(assets);
-
+const[badiList, setbadiList]= useState([]);
   const { enableWeb3, account, isWeb3Enabled } = useMoralis()
   useEffect(() => {
 
@@ -25,6 +25,21 @@ const myAssets = () => {
       try {
         const response = await fetch('/api/swagger/fetchUserProperty');
         const data = await response.json();
+
+const res = data.result;
+ for(let i=0;i<res?.length;i++){
+  if(res[0].data.properties.length>0){
+    const adnarValaArray = res[0].data.properties[0];
+    if(adnarValaArray[1]==account){
+const templist=[];
+ templist.push(adnarValaArray);
+ setbadiList(templist);
+    }
+    console.log("badilist",badiList);
+  }
+ 
+ }
+
         return data;
       } catch (error) {
         console.error('Error:', error);
@@ -33,7 +48,7 @@ const myAssets = () => {
 
     const fetchDataAndUpdateState = async () => {
       const data = await fetchData();
-      console.log("hereprinting", data.result);
+    //  console.log("hereprinting", data.result);
       // Now you can use 'data' in your component state or for further processing
     };
 
