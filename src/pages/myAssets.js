@@ -204,7 +204,7 @@ const myAssets = () => {
 
         {/* loop through the assets and display them here  */}
 
-        {asset.map((item, index) => {
+        {uniqueUserProperties.map((item, index) => {
           return (
             <motion.div
               key={index}
@@ -218,16 +218,16 @@ const myAssets = () => {
               <div className="text-gray-900 mb-4">
                 <ul className="list-disc list-inside">
                   <li style={{ color: '#71717a' }}>
-                    <span style={{ color: 'grey' }}> Asset Id:-   {asset[index].asset_id}</span>
+                    <span style={{ color: 'grey' }}> Asset Id:-   {uniqueUserProperties[index][0]}</span>
                   </li>
                   <li style={{ color: '#71717a' }}>
-                    <span style={{ color: 'grey' }}> Asset Type:-    {asset[index].asset_type}</span>
+                    <span style={{ color: 'grey' }}> Asset Type:-    {uniqueUserProperties[index][4]}</span>
                   </li>
                   <li style={{ color: '#71717a' }}>
-                    <span style={{ color: 'grey' }}> Asset Location:-  {asset[index].location}</span>
+                    <span style={{ color: 'grey' }}> Asset Location:-  {uniqueUserProperties[index][6]}</span>
                   </li>
                   <li style={{ color: '#71717a' }}>
-                    <span style={{ color: 'grey' }}>Bullet Point 4</span>
+                    <span style={{ color: 'grey' }}>{uniqueUserProperties[index][6]}</span>
                   </li>
                 </ul>
                 <div className="mt-6 mb-2 flex items-center justify-center">
