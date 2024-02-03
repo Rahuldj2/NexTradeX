@@ -17,14 +17,14 @@ const myAssets = () => {
   const router = useRouter();
   const [form, setForm] = useState(false);
   const [asset, setAsset] = useState(assets);
-// const[badiList, setbadiList]= useState([]);
-const [userProperties, setUserProperties] = useState([]);
+  // const[badiList, setbadiList]= useState([]);
+  const [userProperties, setUserProperties] = useState([]);
 
-const [uniqueUserProperties, setUniqueUserProperties] = useState(new Set());
-const [uniqueSet, setUniqueSet] = useState(new Set());
+  const [uniqueUserProperties, setUniqueUserProperties] = useState(new Set());
+  const [uniqueSet, setUniqueSet] = useState(new Set());
   const { enableWeb3, account, isWeb3Enabled } = useMoralis()
 
-  useEffect(() => { 
+  useEffect(() => {
     console.log("inside use effect")
     console.log(userProperties);
     // const uniquePropertiesSet = new Set(userProperties.map(arr => JSON.stringify(arr)));
@@ -40,45 +40,45 @@ const [uniqueSet, setUniqueSet] = useState(new Set());
         const response = await fetch('/api/swagger/fetchUserProperty');
         const data = await response.json();
         const userPropertiesArray = [];
-const res = data.result;
-console.log("res",res);
- for(let i=0;i<res.length;i++)
- {
-  if(res[i].data.properties.length>0)
-  {
-    for (let j = 0; j < res[i].data.properties.length; j++)
-    {
-      const adnarValaArray = res[i].data.properties[j];
-      if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
-        //make a global array where this adnarValaArray is completely pushed into this global array 
-        //which will be used to display the assets
+        const res = data.result;
+        //  console.log("res", res);
+        for (let i = 0; i < res.length; i++) {
+          if (res[i].data.properties.length > 0) {
 
-        if (!uniqueSet.has(adnarValaArray[0])) {
-          // Create a new set with the existing elements and the new element
-          const newSet = new Set([...uniqueSet, adnarValaArray[0]]);
-          setUniqueSet(newSet);
-          userPropertiesArray.push(adnarValaArray);
-        } else {
-          console.log(`already exists in the set. Not added.`);
+            for (let j = 0; j < res[i].data.properties.length; j++) {
+
+              const adnarValaArray = res[i].data.properties[j];
+              console.log("fds", account === adnarValaArray[1].toLowerCase())
+              if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
+                //make a global array where this adnarValaArray is completely pushed into this global array 
+                //which will be used to display the assets
+
+                if (!uniqueSet.has(adnarValaArray[0])) {
+                  // Create a new set with the existing elements and the new element
+                  const newSet = new Set([...uniqueSet, adnarValaArray[0]]);
+                  setUniqueSet(newSet);
+                  userPropertiesArray.push(adnarValaArray);
+                } else {
+                  console.log(`already exists in the set. Not added.`);
+                }
+
+
+              }
+            }
+            // const adnarValaArray = res[i].data.properties[0];
+            // if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
+            //   //make a global array where this adnarValaArray is completely pushed into this global array 
+            //   //which will be used to display the assets
+            //   userPropertiesArray.push(adnarValaArray);
+
+            // }
+
+
+
+          }
+
         }
-       
-       
-      }
-    }
-    // const adnarValaArray = res[i].data.properties[0];
-    // if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
-    //   //make a global array where this adnarValaArray is completely pushed into this global array 
-    //   //which will be used to display the assets
-    //   userPropertiesArray.push(adnarValaArray);
-     
-    // }
-
-
-    
-  }
- 
- }
-  setUserProperties(userPropertiesArray);
+        setUserProperties(userPropertiesArray);
 
         return data;
       } catch (error) {
@@ -86,26 +86,26 @@ console.log("res",res);
       }
     };
 
-    
-     // console.log("nanamamamammamam")
-      // const templist = [];
-      // templist.push(adnarValaArray);
-      // setbadiList(templist);
 
-      
+    // console.log("nanamamamammamam")
+    // const templist = [];
+    // templist.push(adnarValaArray);
+    // setbadiList(templist);
+
+
     // console.log(adnarValaArray)
 
-//     if(adnarValaArray[1].toLowerCase()===account.toLowerCase()){
-//       // console.log("nanamamamammamam")
-// const templist=[];
-//  templist.push(adnarValaArray);
-//  setbadiList(templist);
-//     }
-//     console.log("badilist",badiList);
+    //     if(adnarValaArray[1].toLowerCase()===account.toLowerCase()){
+    //       // console.log("nanamamamammamam")
+    // const templist=[];
+    //  templist.push(adnarValaArray);
+    //  setbadiList(templist);
+    //     }
+    //     console.log("badilist",badiList);
 
     const fetchDataAndUpdateState = async () => {
       const data = await fetchData();
-    //  console.log("hereprinting", data.result);
+      //  console.log("hereprinting", data.result);
       // Now you can use 'data' in your component state or for further processing
     };
 
