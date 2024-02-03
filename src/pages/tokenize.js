@@ -82,18 +82,18 @@ const [pimageurl,setPImageUrl]=useState('');
                     video:true
                 })
 
-                .then((stream)=>{
-                    let video = videoRef.current
-                    video.srcObject =stream
-                    video.play()
-                    mediaStreamRef.current = stream;
-                }
-                )
-                .catch((error)=>{
-                    console.error(error)
-                }
-                )
-            }
+          .then((stream)=>{
+              let video = videoRef.current
+              video.srcObject =stream
+              video.play()
+              mediaStreamRef.current = stream;
+          }
+          )
+          .catch((error)=>{
+              console.error(error)
+          }
+          )
+      }
 
 
             const handleInputChange = (e) => {
@@ -152,20 +152,17 @@ const [pimageurl,setPImageUrl]=useState('');
       functionName:"tokenize",
       params:{"owner":account,"price":Price,"_propertyTitle":"Latest property","_category":formData.assetType,"_images":"test1","_propertyAddress":formData.location,"_description":"testonlinefrontend"}
   })
-            const handleSubmit = async () => {
 
-          
-            
-
-             console.log(formData)
-          const uid = user ? user.uid : null;
+    const handleSubmit = async () => {
+      console.log(formData)
+  const uid = user ? user.uid : null;
 
 
-          console.log(uid)
-          const formdetails = {
-            uid: uid,
-            asset_id: formData.assetId,
-            // Add other data needed for the API request
+  console.log(uid)
+  const formdetails = {
+    uid: uid,
+    asset_id: formData.assetId,
+    // Add other data needed for the API request
 
           };
       
@@ -194,24 +191,24 @@ const [pimageurl,setPImageUrl]=useState('');
               else
               {
 
-              }
-      
-              // Continue with your form submission logic if needed
-              console.log('Form submitted!');
-            } else {
-              console.error('API request failed:', response.statusText);
-            }
-          } catch (error) {
-            console.error('Error during API request:', error);
-          }
-            // check if asset exists in the database
+      }
+
+      // Continue with your form submission logic if needed
+      console.log('Form submitted!');
+    } else {
+      console.error('API request failed:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error during API request:', error);
+  }
+    // check if asset exists in the database
 
 
 
-            // Handle form submission logic here
-            // You can access the form data using the state variables (e.g., uploadedImages, uploadedSelfie, etc.)
-            console.log('Form submitted!');
-          };
+    // Handle form submission logic here
+    // You can access the form data using the state variables (e.g., uploadedImages, uploadedSelfie, etc.)
+    console.log('Form submitted!');
+  };
             // Add this function to close the camera
 const closeCamera = () => {
     let video = videoRef.current;
