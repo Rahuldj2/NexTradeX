@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import { motion } from 'framer-motion';
 import styles from "../styles/myAssets.module.css";
 import FormComponent from '../components/FormComponentForSale';
+import assets from './api/myAssetsTestAPI';
 import { useMoralis } from "react-moralis";
 // import { useEffect, useState } from "react";
 import { useWeb3Contract } from "react-moralis";
@@ -33,7 +34,8 @@ const BuyAssets = () => {
 
 
   const [form, setForm] = useState(false);
-  const [assets, setAssets] = useState([]);
+
+  const [asset, setAsset] = useState(assets);
   const [passetsid, setAssetid] = useState('');
   const [passettype, setAssetType] = useState('');
   const [pgovt_price, setgovtPrice] = useState('');
@@ -168,6 +170,7 @@ const handleClick = (item) => {
 
       <div className='bg-white min-h-screen h-fit p-2 flex flex-wrap items-center justify-around'>
         {uniqueUserProperties.map((item, index) => (
+        {uniqueUserProperties.map((item, index) => (
           <motion.div
             key={index}
             variants={cardVariants}
@@ -175,7 +178,7 @@ const handleClick = (item) => {
             whileHover="hover"
             className={`v=bg-white p-3 rounded-2xl shadow-md border-2 border-black flex flex-col justify-between w-80 h-96 mt-10 ${form ? 'filter blur-md':''}`}
           >
-            <img src={item.image} alt={`Asset ${index + 1}`} />
+            <img src={asset[0].image} alt={`Asset ${index + 1}`} />
             <hr className="mb-2"></hr>
             <div className="text-gray-900 mb-4">
               <ul className="list-disc list-inside">
