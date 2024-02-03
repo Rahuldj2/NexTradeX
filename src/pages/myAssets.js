@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { use } from 'react'
 import Navbar from "../components/Navbar";
 import { motion } from 'framer-motion';
 import styles from "../styles/myAssets.module.css";
@@ -20,13 +20,40 @@ const myAssets = () => {
   // const[badiList, setbadiList]= useState([]);
   const [userProperties, setUserProperties] = useState([]);
 
-  const [uniqueUserProperties, setUniqueUserProperties] = useState(new Set());
-  const [uniqueSet, setUniqueSet] = useState(new Set());
+  const [uniqueUserProperties, setUniqueUserProperties] = useState([]);
+
   const { enableWeb3, account, isWeb3Enabled } = useMoralis()
 
   useEffect(() => {
+    console.log(uniqueUserProperties)
+    //THIS IS THE FINAL OUTPUT
+  }, [uniqueUserProperties]);
+  useEffect(() => {
     console.log("inside use effect")
     console.log(userProperties);
+    const keyMap = new Map();
+    const uniqueUserPropertiesList = [];
+
+
+    for (let i = 0; i < userProperties.length; i++) {
+      const currentKey = userProperties[i][0];
+      if (!keyMap.has(currentKey)) {
+        // Add key to map and value=true
+        keyMap.set(currentKey, true);
+
+        // Add the entire array to the list
+        uniqueUserPropertiesList.push(userProperties[i]);
+
+        console.log("Found unique key:", currentKey);
+        console.log("Corresponding array:", userProperties[i]);
+
+        // If you want to break out of the loop after finding the first unique key, uncomment the next line
+        // break;
+      }
+
+      // console.log(userProperties[i][0]);
+    }
+    setUniqueUserProperties(uniqueUserPropertiesList)
     // const uniquePropertiesSet = new Set(userProperties.map(arr => JSON.stringify(arr)));
     // setUniqueUserProperties(uniquePropertiesSet);
     // console.log("uniquePropertiesSet",uniqueUserProperties);
