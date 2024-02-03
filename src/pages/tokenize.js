@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { getAuth,  onAuthStateChanged} from 'firebase/auth';
 import app from '../firebaseConfig';
-
+import {getStorage ,ref ,uploadBytes,getDownloadURL} from 'firebase/storage'
 
 import { useMoralis } from "react-moralis";
 import { useWeb3Contract } from "react-moralis";
@@ -45,9 +45,12 @@ const Tokenize = () => {
     const [clearButton,setClearButton]= useState(false);
     const [user, setUser] = useState(null); // Initialize user state
 const [loading, setLoading] = useState(true); // Initialize loading state
-const [error, setError] = useState(null); 
+const [error, setError] = useState(null);
+const [pimageurl,setPImageUrl]=useState('');
     const auth = getAuth(app);
-
+ 
+    const storage = getStorage(app);
+   
     // const videoRef = useRef(null);
     let videoRef  =useRef(null)
          let photoRef =useRef(null)
@@ -66,6 +69,13 @@ const [error, setError] = useState(null);
         }, [auth]);
 
       
+
+
+
+
+
+
+        
             const getUserCamera =() =>
             {
                 navigator.mediaDevices.getUserMedia({
@@ -95,7 +105,46 @@ const [error, setError] = useState(null);
             };
 
 
-            
+           
+
+            const markTokenizetrue = async () => {
+              try {
+                const response = await axios.post('/api/your-api-endpoint', {
+                  asset_id: assetId,
+                });
+          
+                if (response.status === 201) {
+                  console.log('Asset updated successfully:', response.data);
+                  // Do something with the updated asset data if needed
+                } else {
+                  console.error('Failed to update asset:', response.data.message);
+                }
+              } catch (error) {
+                console.error('Error updating asset:', error);
+              }
+
+            }
+
+
+
+
+            const handleImageUpload = async () => {
+             
+              console.log("length",uploadedImages.length)
+              if (uploadedImages[0] && user) {
+             
+                const storageRef = ref(storage, `property_images/${user.uid}/${formData.assetId}`);
+                await uploadBytes(storageRef, uploadedImages[0]);
+          
+                // Retrieve download URL
+               const downloadURL = await getDownloadURL(storageRef);
+               setPImageUrl(downloadURL);
+               console.log(downloadURL);
+               console.log("hm")
+               console.log(pimageurl);
+                // Do something with the download URL
+              }
+            }
 
     const {runContractFunction: tokenize}=useWeb3Contract({
       abi:contractABI,
@@ -135,10 +184,12 @@ const [error, setError] = useState(null);
               // Do something with the data from the API response
               console.log(data);
               if (data.result) {
-                const propertyId= await tokenize()
-                setReturnedId(propertyId)
-                console.log(propertyId)
-                console.log(returnedId)
+
+               await handleImageUpload();
+                // const propertyId= await tokenize()
+                // setReturnedId(propertyId)
+                // console.log(propertyId)
+                // console.log(returnedId)
               }
               else
               {
@@ -222,6 +273,9 @@ const closeCamera = () => {
          useEffect(() =>
          {
             getUserCamera()
+         
+          
+           
          },[])
     
     const handleImageSubmission = () => {
@@ -247,37 +301,30 @@ const closeCamera = () => {
           formData.append('image1', blob1, 'image1.jpg');
           formData.append('image2', blob2, 'image2.jpg');
   
-          // Perform your desired actions with formData, such as sending it to a server
-          // fetch('/upload-images', {
-          //   method: 'POST',
-          //   body: formData,
-          // })
-          //   .then(response => response.json())
-          //   .then(data => console.log(data))
-          //   .catch(error => console.error('Error:', error));
+       
 
           
-         let videoRef  =useRef(null)
-            const getUserCamera =() =>
-            {
-                navigator.mediaDevices.getUserMedia({
-                    video:true
-                })
-                .then((stream)=>{
-                    let video = videoRef.current
-                    video.srcObject =stream
-                    video.play()
-                }
-                )
-                .catch((error)=>{
-                    console.error(error)
-                }
-                )
-            }
-         useEffect(() =>
-         {
-            getUserCamera()
-         },[videoRef])
+        //  let videoRef  =useRef(null)
+        //     const getUserCamera =() =>
+        //     {
+        //         navigator.mediaDevices.getUserMedia({
+        //             video:true
+        //         })
+        //         .then((stream)=>{
+        //             let video = videoRef.current
+        //             video.srcObject =stream
+        //             video.play()
+        //         }
+        //         )
+        //         .catch((error)=>{
+        //             console.error(error)
+        //         }
+        //         )
+        //     }
+        //  useEffect(() =>
+        //  {
+        //     getUserCamera()
+        //  },[videoRef])
     
         }
       }
@@ -435,6 +482,7 @@ const closeCamera = () => {
       <input
         type="file"
         id="file1"
+        
         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
       />
     </div>
@@ -448,6 +496,10 @@ const closeCamera = () => {
         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
       />
     </div>
+
+    <button onClick={handleImageSubmission} className={`ml-4 ${isCameraOpen ? 'bg-red-500 hover:bg-red-700 mt-3 mb-3' : 'bg-green-500 hover:bg-green-700'} text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform`} type="button">
+           image
+          </button>
   </div>
 
  
@@ -557,7 +609,3 @@ const closeCamera = () => {
 }
 
 export default Tokenize
-
-
-  
-  

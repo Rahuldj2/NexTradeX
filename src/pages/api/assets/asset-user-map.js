@@ -19,7 +19,7 @@ export default async function handler(req, res) {
       .select('*')
       .eq('uid', uid);
 
-    console.log(user, "user")
+
     if (userError) {
       throw userError;
     }
