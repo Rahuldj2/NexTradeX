@@ -1,0 +1,17 @@
+.card{
+    height: 21rem;
+    width: 19rem;
+
+    margin: 1rem;
+}
+
+.form{
+    background-color: white;
+
+    height: 75%;
+    width: 40%;
+    position: absolute;
+    top: 52.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

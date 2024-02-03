@@ -1,0 +1,38 @@
+.head{
+/* background-color: #0c0d22; */
+/* background-image: radial-gradient(closest-side at 50% 50%,#101e29, #0c0d22); */
+background-color: #091d38;
+
+}
+
+.head2{
+    background-image: radial-gradient(#1b3143, #0c0d22,#0c0d22);
+}
+
+.head3{
+background-image: radial-gradient(closest-side at 90% 70%, #152028, #0c0d22);
+}
+
+.head4{
+
+    background-image: radial-gradient(#374a56, #0c0d22);
+
+}
+
+.head5{
+    background-image: radial-gradient(#439bce,#3178a0, #1f202d);
+}
+
+.bg{
+    background-color: #0c0d22;
+}
+
+.bgi{
+    background-image:url('../assets/bg.jpeg');
+    /* background-size: cover; */
+
+}
+
+.nav{
+    box-shadow: #221e63 0px 5px 15px;
+}
