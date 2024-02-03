@@ -1,7 +1,14 @@
 // FormComponent.js
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+import { useMoralis } from "react-moralis";
+// import { useEffect, useState } from "react";
+import { useWeb3Contract } from "react-moralis";
+import { contractABI, contract_address } from "../../contracts/NewContractDetails.js";
+import BigNumber from 'bignumber.js';
+
 
 const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
+    const { enableWeb3, account, isWeb3Enabled } = useMoralis()
     const [formData, setFormData] = useState({
         area: '',
         governmentRice: '',
@@ -11,6 +18,15 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
         agreeTerms: false,
     });
 
+    useEffect(()=>{
+        console.log("HI")
+        if (isWeb3Enabled)
+        {
+          console.log(account);
+        }
+        enableWeb3()
+  
+    },[isWeb3Enabled])
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData((prevData) => ({
@@ -19,12 +35,33 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
         }));
     };
 
+    const { runContractFunction: fundInitial } = useWeb3Contract({
+        abi: contractABI,
+        contractAddress: contract_address,
+        functionName: "fundInitial",
+        params: {"propertyId":1},//state variable update
+        msgValue: "1"//state variable update
+      });
     const handleSubmit = (e) => {
         e.preventDefault();
+
         // Perform your form submission logic here
         setForm(false);
 
         console.log(formData);
+                const maticAmountString = "0.2";
+        const decimals = 18;
+
+        // Convert the string to a BigNumber
+        const maticAmount = new BigNumber(maticAmountString);
+
+        // Calculate the equivalent amount in wei
+        const weiAmount = maticAmount.times(new BigNumber(10).pow(decimals));
+
+        // Format the result as a string
+        const weiAmountString = weiAmount.toFixed(0);
+
+        console.log(weiAmountString);  // Output: "200000000000000000"
     };
 
     const close = () => {

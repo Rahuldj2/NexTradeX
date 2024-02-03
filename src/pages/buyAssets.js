@@ -151,6 +151,8 @@ const handleClick = (item) => {
   setgovtPrice(item.govt_price);
 };
 
+    
+
   return (
     <div className='h-screen'>
       <div className='h-16'>
@@ -201,7 +203,7 @@ const handleClick = (item) => {
                 <button onClick={() => handleClick(item)}
                   className="font-medium bg-white border border-violet-900 text-violet-900 px-6 py-2 rounded-md hover:bg-violet-900 hover:text-white focus:outline-none focus:ring focus:border-blue-300"
                 >
-                  Mark as Up for Sale
+                  Buy/Bid
                 </button>
               </div>
             </div>
