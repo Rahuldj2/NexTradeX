@@ -41,10 +41,12 @@ const Tokenize = () => {
     const[returnedPropId,setReturnedPropId]=useState(0)
 
     const [uploadedImages, setUploadedImages] = useState([]);
-    const [uploadedSelfie, setUploadedSelfie] = useState(null);
+    const [capturedImage, setCapturedImage] = useState(null);
+    const [uploadedSelfie,setUploadedSelfie]= useState(null)
     const [selfieBlob,setSelfieBlob]=useState(null);
     const [isCameraOpen, setIsCameraOpen] = useState(true);
     const [clearButton,setClearButton]= useState(false);
+    
     const [user, setUser] = useState(null); // Initialize user state
 const [loading, setLoading] = useState(true); // Initialize loading state
 const [error, setError] = useState(null);
@@ -259,29 +261,35 @@ const closeCamera = () => {
     setIsCameraOpen(true);
   };
 
+  const handleCapture = () => {
+    if (capturedImage) {
+      setUploadedSelfie(capturedImage); // Save the captured image to uploadedSelfie state
+      setCapturedImage(null); // Reset capturedImage state for the next capture
+    }
+  };
+
 
              //take picture method 
-             const takePicture =() =>
-             {
-                let width = 530 
-                let height = width / (16/11)
-                let photo = photoRef.current
-                let video = videoRef.current
-
-                //set the photo width and height 
-                photo.width = width 
-                photo.height = height 
-                let ctx = photo.getContext('2d')
-                ctx.drawImage(video, 0 ,0 ,photo.width, photo.height )
-
-                photo.toBlob((blob) => {
-                    setSelfieBlob(blob);
-
-                    
-                  
-                  });
-                  setClearButton(true)
-             }
+             const takePicture = () => {
+              let width = 600;
+              let height = width / (16 / 11);
+              let photo = photoRef.current;
+              let video = videoRef.current;
+            
+              // Set the photo width and height
+              photo.width = width;
+              photo.height = height;
+            
+              let ctx = photo.getContext('2d');
+              ctx.drawImage(video, 0, 0, photo.width, photo.height);
+            
+              photo.toBlob((blob) => {
+                setSelfieBlob(blob);
+                setCapturedImage(URL.createObjectURL(blob)); // Save the captured image
+              });
+            
+              setClearButton(true);
+            };
 
              
            
@@ -541,7 +549,14 @@ const closeCamera = () => {
 {/* <button onClick={closeCamera} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform ml-4" type="button">Close Camera</button> */}
 
           <canvas className={styles.selfie_video} ref={photoRef}></canvas>
-          {clearButton? <button onClick={clearPicture} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform mt-3 mb-3" type="button">Clear</button>: <></>}
+          {clearButton ?
+           <div>
+           <button onClick={clearPicture} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform mt-3 mb-3" type="button">Clear</button>
+           <button onClick={handleCapture} className="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform mt-3 mb-3" type="button">
+    Capture
+  </button>
+           </div>
+           : <></>}
        
      </div>
 
