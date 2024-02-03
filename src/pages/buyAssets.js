@@ -1,8 +1,15 @@
+// import React, { useState} from 'react';
+
 import React, { useState, useEffect } from 'react';
 import Navbar from "../components/Navbar";
 import { motion } from 'framer-motion';
 import styles from "../styles/myAssets.module.css";
 import FormComponent from '../components/FormComponentForSale';
+import { useMoralis } from "react-moralis";
+// import { useEffect, useState } from "react";
+import { useWeb3Contract } from "react-moralis";
+import { contractABI, contract_address } from "../../contracts/NewContractDetails.js";
+
 
 const BuyAssets = () => {
   const [form, setForm] = useState(false);
@@ -11,7 +18,10 @@ const BuyAssets = () => {
   const [passettype, setAssetType] = useState('');
   const [pgovt_price, setgovtPrice] = useState('');
   const [passet_location, setAssetLocation] = useState('');
- 
+  const { enableWeb3, account, isWeb3Enabled } = useMoralis()
+  const [upSaleProperties, setSaleProperties] = useState([]);
+
+  const [uniqueUserProperties, setUniqueUserProperties] = useState([]);
   const cardVariants = {
     initial: { scale: 1, boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.1)' },
     hover: {
@@ -20,16 +30,51 @@ const BuyAssets = () => {
     },
   };
 
+    useEffect(()=>{
+      console.log("HI")
+      if (isWeb3Enabled)
+      {
+        console.log("saassa");
+      }
+      enableWeb3()
+
+  },[isWeb3Enabled])
+
+  // useEffect=(()=>{
+  //   console.log(upSaleProperties)
+  // },[upSaleProperties])
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/assets/get-up-for-sale-assets');
+        const response = await fetch('/api/swagger/fetchMarketPlace');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
 
         const data = await response.json();
-        setAssets(data);
+        // console.log(data);
+        const res = data.result;
+      console.log("res",res);
+      const userPropertiesArray = [];
+        for(let i=0;i<res.length;i++)
+        {
+            if(res[i].data.properties.length>0)
+            {
+              for (let j = 0; j < res[i].data.properties.length; j++)
+              {
+                const adnarValaArray = res[i].data.properties[j];
+                userPropertiesArray.push(adnarValaArray);
+              }
+
+
+              
+            }
+          
+          }
+          setSaleProperties(userPropertiesArray)
+
+                  // setAssets(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -38,6 +83,43 @@ const BuyAssets = () => {
     fetchData();
   }, []);
 
+
+  useEffect(() => {
+    console.log("BHAIYYA YE HAI FINAL LELO PLS")
+    console.log(uniqueUserProperties)
+    //THIS IS THE FINAL OUTPUT
+  }, [uniqueUserProperties]);
+
+  useEffect(() => {
+    console.log(upSaleProperties)
+    const keyMap = new Map();
+    const uniqueUserPropertiesList = [];
+
+
+    for (let i=0;i<upSaleProperties.length;i++)
+    {
+      const currentKey = upSaleProperties[i][0];
+      if (!keyMap.has(currentKey)) {
+        // Add key to map and value=true
+        keyMap.set(currentKey, true);
+  
+        // Add the entire array to the list
+        uniqueUserPropertiesList.push(upSaleProperties[i]);
+  
+        console.log("Found unique key:", currentKey);
+        console.log("Corresponding array:", upSaleProperties[i]);
+  
+        // If you want to break out of the loop after finding the first unique key, uncomment the next line
+        // break;
+      }
+
+      // console.log(userProperties[i][0]);
+    }
+    setUniqueUserProperties(uniqueUserPropertiesList)
+    // const uniquePropertiesSet = n
+
+
+  }, [upSaleProperties]);
   // Assuming this function is triggered on a button click or some other event
 const handleClick = (item) => {
   setForm(prevForm => !prevForm); // Toggle the form state
@@ -51,6 +133,16 @@ const handleClick = (item) => {
     <div className='h-screen'>
       <div className='h-16'>
         <Navbar />
+        <div style={{marginTop:'200px'}}>
+        {
+            account ?(
+                <>
+                <div>Connected to {account}</div>
+                {/* <button onClick={handleClick}>make a property</button> */}
+                </>
+            ):(<button onClick={async ()=>{await enableWeb3()}}>Connect</button>)
+        }
+        </div>
       </div>
       <div className='bg-black text-xxl h-16 text-center font-serif font-bold'>Market Place</div>
 
