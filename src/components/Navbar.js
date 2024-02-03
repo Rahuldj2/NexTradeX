@@ -15,31 +15,31 @@ const Navbar = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
-  
-  useEffect(  () => {
+
+  useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setIsLoggedIn(!!user);
       setCurrentUser(user);
     });
-    ( async () => {
-  
-  
-    
-    if (currentUser) {
-      const uid = currentUser.uid;
-      const response =  await fetch(`/api/user/check-if-user-exists-uid?uid=${uid}`);
-      const data = await  response.json();
-  
-      if (data.userExists) {
-        setIsSignedIn(true);
-      } else {
-        setIsSignedIn(false);
+    (async () => {
+
+
+
+      if (currentUser) {
+        const uid = currentUser.uid;
+        const response = await fetch(`/api/user/check-if-user-exists-uid?uid=${uid}`);
+        const data = await response.json();
+
+        if (data.userExists) {
+          setIsSignedIn(true);
+        } else {
+          setIsSignedIn(false);
+        }
       }
-    }
     })();
     return () => unsubscribe();
   }, [currentUser]);
-  
+
 
   const handleLogout = async () => {
     try {
@@ -62,36 +62,34 @@ const Navbar = () => {
           <div className="border-white border-2 px-6 py-2 rounded-2xl hover:border-cyan-400 hover:text-cyan-400">
             <Link href="/myAssets">My Assets</Link>
           </div>
-          {isLoggedIn&&isSignedIn ? (
+          {isLoggedIn && isSignedIn ? (
             <>
-              <div>
+              <div className="border-white border-2 px-6 py-2 rounded-2xl hover:border-cyan-400 hover:text-cyan-400">
                 <Link href="/tokenize">Tokenize</Link>
               </div>
-              <div>
-                <Link href="/my-assets">My Assets</Link>
+              <div className="border-white border-2 px-6 py-2 rounded-2xl hover:border-cyan-400 hover:text-cyan-400">
+                <Link href="/myBids">My Bids</Link>
               </div>
-              <div>
-                <Link href="/sell">Sell</Link>
+              <div className="border-white border-2 px-6 py-2 rounded-2xl hover:border-cyan-400 hover:text-cyan-400">
+                <Link href="/bidOpennings">Bid Openings</Link>
               </div>
               {/* <Link href="/my-assets">My Assets</Link>
               <Link href="/sell">Sell</Link> */}
-              <a href="https://external-website.com" target="_blank" rel="noopener noreferrer">
-                Loans
-              </a>
+
             </>
           ) : (
             <div></div>
           )}
         </div>
         <div className="flex items-center">
-       
-        {isLoggedIn&&isSignedIn ? (
-          // If the user is logged in, show "Logout" option
-          <button onClick={handleLogout}>Logout</button>
-        ) : (
-          // If the user is not logged in, show "Login" option
-          <Link href="/login">Login</Link>
-        )}
+
+          {isLoggedIn && isSignedIn ? (
+            // If the user is logged in, show "Logout" option
+            <button onClick={handleLogout}>Logout</button>
+          ) : (
+            // If the user is not logged in, show "Login" option
+            <Link href="/login">Login</Link>
+          )}
         </div>
       </div>
     </nav>
