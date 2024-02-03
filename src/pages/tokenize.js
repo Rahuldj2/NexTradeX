@@ -124,7 +124,7 @@ const [pimageurl,setPImageUrl]=useState('');
                 const response = await axios.post('/api/assets/mark-tokenize', {
                   asset_id: assetId,
                   // add solidity id here
-                  //solidity_id:
+                  solidity_id:returnedPropId
                 });
           
                 if (response.status === 201) {
@@ -143,11 +143,11 @@ const [pimageurl,setPImageUrl]=useState('');
 
 
             const handleImageUpload = async () => {
-             
+             await handleImageSubmission();
               console.log("length",uploadedImages.length)
               if (uploadedImages[0] && user) {
              
-                const storageRef = ref(storage, `property_images/${user.uid}/${formData.assetId}`);
+                const storageRef = ref(storage, `property_images/${user.uid}/${returnedPropId}`);
                 await uploadBytes(storageRef, uploadedImages[0]);
           
                 // Retrieve download URL
@@ -203,8 +203,9 @@ const [pimageurl,setPImageUrl]=useState('');
                 const propertyIdResult=await fetchData();
                 console.log(propertyIdResult.result.length)
 
-                setReturnedPropId(propertyIdResult.result.length)
-
+                setReturnedPropId(propertyIdResult.result.length);
+                await handleImageUpload();
+await markTokenizetrue();
               }
               else
               {
@@ -302,7 +303,7 @@ const closeCamera = () => {
         const file1 = fileInput1.files[0];
         const file2 = fileInput2.files[0];
   
-        if (file1 && file2) {
+        if (file1 || file2) {
           // Convert images to blobs and store in state
           const blob1 = new Blob([file1], { type: file1.type });
           const blob2 = new Blob([file2], { type: file2.type });
