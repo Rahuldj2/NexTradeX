@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   }
 
   const { uid, asset_id } = req.body;
-
+var temp1= false;
   try {
     // Convert asset_id to integer
     // const parsedAssetId = parseInt(asset_id);
@@ -31,11 +31,39 @@ export default async function handler(req, res) {
       .select('asset_id')
       .eq('phone_number', user[0].phone_number);
 
+
+
+
     if (assetIds.some(item => item.asset_id === parseInt(asset_id))) {
-      return res.status(200).json({ result: true });
+      temp1= true;
+      
     } else {
       return res.status(200).json({ result: false });
     }
+
+
+if(temp1){
+  const { data: istokenized, error: assetIdsError } = await supabase
+  .from('assets')
+  .select('tokenized')
+  .eq('asset_id', parseInt(asset_id));
+
+ 
+
+if(!istokenized[0].tokenized){
+  return res.status(200).json({ result: true });
+}else{
+  return res.status(200).json({ result: false });
+}
+
+
+
+
+}else{
+  return res.status(200).json({ result: false });
+}
+
+
 
     } catch (error) {
       console.error('Error checking if user exists:', error);

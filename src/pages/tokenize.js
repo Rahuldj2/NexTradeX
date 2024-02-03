@@ -122,7 +122,7 @@ const [pimageurl,setPImageUrl]=useState('');
             const markTokenizetrue = async () => {
               try {
                 const response = await axios.post('/api/assets/mark-tokenize', {
-                  asset_id: assetId,
+                  asset_id: aassetId,
                   // add solidity id here
                   solidity_id:returnedPropId
                 });
