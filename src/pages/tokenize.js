@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import { getAuth,  onAuthStateChanged} from 'firebase/auth';
 import app from '../firebaseConfig';
 import {getStorage ,ref ,uploadBytes,getDownloadURL} from 'firebase/storage'
+import axios from 'axios'
 // import middleware from '../cors'
 
 import { useMoralis } from "react-moralis";
@@ -119,12 +120,12 @@ const [pimageurl,setPImageUrl]=useState('');
 
            
 
-            const markTokenizetrue = async () => {
+            const markTokenizetrue = async (propId) => {
               try {
                 const response = await axios.post('/api/assets/mark-tokenize', {
-                  asset_id: aassetId,
+                  asset_id: formData.assetId,
                   // add solidity id here
-                  solidity_id:returnedPropId
+                  solidity_id:propId
                 });
           
                 if (response.status === 201) {
@@ -142,12 +143,12 @@ const [pimageurl,setPImageUrl]=useState('');
 
 
 
-            const handleImageUpload = async () => {
+            const handleImageUpload = async (propId) => {
              await handleImageSubmission();
               console.log("length",uploadedImages.length)
               if (uploadedImages[0] && user) {
              
-                const storageRef = ref(storage, `property_images/${user.uid}/${returnedPropId}`);
+                const storageRef = ref(storage, `property_images/${user.uid}/${propId}`);
                 await uploadBytes(storageRef, uploadedImages[0]);
           
                 // Retrieve download URL
@@ -203,9 +204,9 @@ const [pimageurl,setPImageUrl]=useState('');
                 const propertyIdResult=await fetchData();
                 console.log(propertyIdResult.result.length)
 
-                setReturnedPropId(propertyIdResult.result.length);
-                await handleImageUpload();
-await markTokenizetrue();
+               // setReturnedPropId(propertyIdResult.result.length);
+                await handleImageUpload(propertyIdResult.result.length);
+await markTokenizetrue(propertyIdResult.result.length);
               }
               else
               {
@@ -303,7 +304,7 @@ const closeCamera = () => {
         const file1 = fileInput1.files[0];
         const file2 = fileInput2.files[0];
   
-        if (file1 || file2) {
+        if (file1 && file2) {
           // Convert images to blobs and store in state
           const blob1 = new Blob([file1], { type: file1.type });
           const blob2 = new Blob([file2], { type: file2.type });
