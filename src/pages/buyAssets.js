@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import { motion } from 'framer-motion';
 import styles from "../styles/myAssets.module.css";
 import FormComponent from '../components/FormComponentForSale';
+import assets from './api/myAssetsTestAPI';
 import { useMoralis } from "react-moralis";
 // import { useEffect, useState } from "react";
 import { useWeb3Contract } from "react-moralis";
@@ -13,7 +14,8 @@ import { contractABI, contract_address } from "../../contracts/NewContractDetail
 
 const BuyAssets = () => {
   const [form, setForm] = useState(false);
-  const [assets, setAssets] = useState([]);
+
+  const [asset, setAsset] = useState(assets);
   const [passetsid, setAssetid] = useState('');
   const [passettype, setAssetType] = useState('');
   const [pgovt_price, setgovtPrice] = useState('');
@@ -147,7 +149,7 @@ const handleClick = (item) => {
       <div className='bg-black text-xxl h-16 text-center font-serif font-bold'>Market Place</div>
 
       <div className='bg-white min-h-screen h-fit p-2 flex flex-wrap items-center justify-around'>
-        {assets.map((item, index) => (
+        {uniqueUserProperties.map((item, index) => (
           <motion.div
             key={index}
             variants={cardVariants}
@@ -155,21 +157,24 @@ const handleClick = (item) => {
             whileHover="hover"
             className={`v=bg-white p-3 rounded-2xl shadow-md border-2 border-black flex flex-col justify-between w-80 h-96 mt-10 ${form ? 'filter blur-md':''}`}
           >
-            <img src={item.image} alt={`Asset ${index + 1}`} />
+            <img src={asset[0].image} alt={`Asset ${index + 1}`} />
             <hr className="mb-2"></hr>
             <div className="text-gray-900 mb-4">
               <ul className="list-disc list-inside">
               <li style={{ color: '#0D0D0E' }}>
-                  <span style={{ color: 'grey' }}>{item.propertyTitle}</span>
+                  <span style={{ color: 'grey' }}>{uniqueUserProperties[index][3]}</span>
                 </li>
                 <li style={{ color: '#71717a' }}>
-                  <span style={{ color: 'grey' }}>Asset Id:- {item.asset_id}</span>
+                  <span style={{ color: 'grey' }}>Asset Id:- {uniqueUserProperties[index][0]}</span>
                 </li>
                 <li style={{ color: '#71717a' }}>
-                  <span style={{ color: 'grey' }}>Asset Type:- {item.asset_type}</span>
+                  <span style={{ color: 'grey' }}>Asset Type:- {uniqueUserProperties[index][4]}</span>
                 </li>
                 <li style={{ color: '#71717a' }}>
-                  <span style={{ color: 'grey' }}>Asset Location:- {item.propertyAddress}</span>
+                  <span style={{ color: 'grey' }}>Asset Location:- {uniqueUserProperties[index][6]}</span>
+                </li>
+                <li style={{ color: '#71717a' }}>
+                  <span style={{ color: 'grey' }}>{uniqueUserProperties[index][7]}</span>
                 </li>
                 
               </ul>
