@@ -38,6 +38,16 @@ const myAssets = () => {
       const kuch =  fetchData();
       console.log(kuch);
      
+ const res= kuch.result;
+for(let i=0;i<res?.length;i++){
+if(res[0].data.properties.length>0){
+ const andarValaArray = res[0].data.properties[0];
+ console.log("andar",andarValaArray);
+}
+
+}
+
+
   },[isWeb3Enabled])
 
 
