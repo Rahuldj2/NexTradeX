@@ -21,7 +21,7 @@ const myAssets = () => {
 const [userProperties, setUserProperties] = useState([]);
 
 const [uniqueUserProperties, setUniqueUserProperties] = useState(new Set());
-
+const [uniqueSet, setUniqueSet] = useState(new Set());
   const { enableWeb3, account, isWeb3Enabled } = useMoralis()
 
   useEffect(() => { 
@@ -52,7 +52,16 @@ console.log("res",res);
       if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
         //make a global array where this adnarValaArray is completely pushed into this global array 
         //which will be used to display the assets
-        userPropertiesArray.push(adnarValaArray);
+
+        if (!uniqueSet.has(adnarValaArray[0])) {
+          // Create a new set with the existing elements and the new element
+          const newSet = new Set([...uniqueSet, adnarValaArray[0]]);
+          setUniqueSet(newSet);
+          userPropertiesArray.push(adnarValaArray);
+        } else {
+          console.log(`already exists in the set. Not added.`);
+        }
+       
        
       }
     }
