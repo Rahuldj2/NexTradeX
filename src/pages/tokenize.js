@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import { getAuth,  onAuthStateChanged} from 'firebase/auth';
 import app from '../firebaseConfig';
 import {getStorage ,ref ,uploadBytes,getDownloadURL} from 'firebase/storage'
+// import middleware from '../cors'
 
 import { useMoralis } from "react-moralis";
 import { useWeb3Contract } from "react-moralis";
@@ -36,7 +37,7 @@ const Tokenize = () => {
       zip: '',
     });
 
-
+    const[returnedPropId,setReturnedPropId]=useState(0)
 
     const [uploadedImages, setUploadedImages] = useState([]);
     const [uploadedSelfie, setUploadedSelfie] = useState(null);
@@ -72,7 +73,18 @@ const [pimageurl,setPImageUrl]=useState('');
 
 
 
-
+        const fetchData = async () => {
+          try {
+            const response = await fetch('/api/fetchData');
+            const data = await response.json();
+            // console.log(data);
+            return data;
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        };
+        
+        
 
 
         
@@ -183,17 +195,21 @@ const [pimageurl,setPImageUrl]=useState('');
               // Do something with the data from the API response
               console.log(data);
               if (data.result) {
-
-               await handleImageUpload();
-                // const propertyId= await tokenize()
                 // setReturnedId(propertyId)
                 // console.log(propertyId)
                 // console.log(returnedId)
+                const transactionMined=await tokenize();
+                // console.log(transactionMined)
+                const propertyIdResult=await fetchData();
+                console.log(propertyIdResult.result.length)
+
+                setReturnedPropId(propertyIdResult.result.length)
+
               }
               else
               {
 
-      }
+              }
 
       // Continue with your form submission logic if needed
       console.log('Form submitted!');
