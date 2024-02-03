@@ -17,10 +17,10 @@ const myAssets = () => {
   const router = useRouter();
   const [form, setForm] = useState(false);
   const [asset, setAsset] = useState(assets);
-  // const[badiList, setbadiList]= useState([]);
-  const [userProperties, setUserProperties] = useState([]);
+// const[badiList, setbadiList]= useState([]);
+const [userProperties, setUserProperties] = useState([]);
 
-  const [uniqueUserProperties, setUniqueUserProperties] = useState([]);
+const [uniqueUserProperties, setUniqueUserProperties] = useState([]);
 
   const { enableWeb3, account, isWeb3Enabled } = useMoralis()
 
@@ -28,25 +28,26 @@ const myAssets = () => {
     console.log(uniqueUserProperties)
     //THIS IS THE FINAL OUTPUT
   }, [uniqueUserProperties]);
-  useEffect(() => {
+  useEffect(() => { 
     console.log("inside use effect")
     console.log(userProperties);
     const keyMap = new Map();
     const uniqueUserPropertiesList = [];
 
 
-    for (let i = 0; i < userProperties.length; i++) {
+    for (let i=0;i<userProperties.length;i++)
+    {
       const currentKey = userProperties[i][0];
       if (!keyMap.has(currentKey)) {
         // Add key to map and value=true
         keyMap.set(currentKey, true);
-
+  
         // Add the entire array to the list
         uniqueUserPropertiesList.push(userProperties[i]);
-
+  
         console.log("Found unique key:", currentKey);
         console.log("Corresponding array:", userProperties[i]);
-
+  
         // If you want to break out of the loop after finding the first unique key, uncomment the next line
         // break;
       }
@@ -67,38 +68,36 @@ const myAssets = () => {
         const response = await fetch('/api/swagger/fetchUserProperty');
         const data = await response.json();
         const userPropertiesArray = [];
-        const res = data.result;
-        //  console.log("res", res);
-        for (let i = 0; i < res.length; i++) {
-          if (res[i].data.properties.length > 0) {
-
-            for (let j = 0; j < res[i].data.properties.length; j++) {
-
-              const adnarValaArray = res[i].data.properties[j];
-              console.log("fds", account === adnarValaArray[1].toLowerCase())
-              if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
-                //make a global array where this adnarValaArray is completely pushed into this global array 
-                //which will be used to display the assets
-
-
-
-
-              }
-            }
-            // const adnarValaArray = res[i].data.properties[0];
-            // if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
-            //   //make a global array where this adnarValaArray is completely pushed into this global array 
-            //   //which will be used to display the assets
-            //   userPropertiesArray.push(adnarValaArray);
-
-            // }
+const res = data.result;
+console.log("res",res);
+ for(let i=0;i<res.length;i++)
+ {
+  if(res[i].data.properties.length>0)
+  {
+    for (let j = 0; j < res[i].data.properties.length; j++)
+    {
+      const adnarValaArray = res[i].data.properties[j];
+      if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
+        //make a global array where this adnarValaArray is completely pushed into this global array 
+        //which will be used to display the assets
+        userPropertiesArray.push(adnarValaArray);
+       
+      }
+    }
+    // const adnarValaArray = res[i].data.properties[0];
+    // if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
+    //   //make a global array where this adnarValaArray is completely pushed into this global array 
+    //   //which will be used to display the assets
+    //   userPropertiesArray.push(adnarValaArray);
+     
+    // }
 
 
-
-          }
-
-        }
-        setUserProperties(userPropertiesArray);
+    
+  }
+ 
+ }
+  setUserProperties(userPropertiesArray);
 
         return data;
       } catch (error) {
@@ -106,26 +105,26 @@ const myAssets = () => {
       }
     };
 
+    
+     // console.log("nanamamamammamam")
+      // const templist = [];
+      // templist.push(adnarValaArray);
+      // setbadiList(templist);
 
-    // console.log("nanamamamammamam")
-    // const templist = [];
-    // templist.push(adnarValaArray);
-    // setbadiList(templist);
-
-
+      
     // console.log(adnarValaArray)
 
-    //     if(adnarValaArray[1].toLowerCase()===account.toLowerCase()){
-    //       // console.log("nanamamamammamam")
-    // const templist=[];
-    //  templist.push(adnarValaArray);
-    //  setbadiList(templist);
-    //     }
-    //     console.log("badilist",badiList);
+//     if(adnarValaArray[1].toLowerCase()===account.toLowerCase()){
+//       // console.log("nanamamamammamam")
+// const templist=[];
+//  templist.push(adnarValaArray);
+//  setbadiList(templist);
+//     }
+//     console.log("badilist",badiList);
 
     const fetchDataAndUpdateState = async () => {
       const data = await fetchData();
-      //  console.log("hereprinting", data.result);
+    //  console.log("hereprinting", data.result);
       // Now you can use 'data' in your component state or for further processing
     };
 
@@ -220,7 +219,7 @@ const myAssets = () => {
                     <span style={{ color: 'grey' }}> Asset Location:-  {uniqueUserProperties[index][6]}</span>
                   </li>
                   <li style={{ color: '#71717a' }}>
-                    <span style={{ color: 'grey' }}>{uniqueUserProperties[index][6]}</span>
+                    <span style={{ color: 'grey' }}>{uniqueUserProperties[index][7]}</span>
                   </li>
                 </ul>
                 <div className="mt-6 mb-2 flex items-center justify-center">
