@@ -20,15 +20,26 @@ const myAssets = () => {
 
     const{enableWeb3,account,isWeb3Enabled}=useMoralis()
     useEffect(()=>{
+
+      var check=false;
       console.log("HI")
       if (isWeb3Enabled)
       {
         console.log("ok")
-          return
+      
+  check= true;
+         
       }
-      enableWeb3()
-
+      if(!check){
+        enableWeb3()
+      }
+    
+      getUserProperties();
+      const kuch =  fetchData();
+      console.log(kuch);
+     
   },[isWeb3Enabled])
+
 
     // console.log(asset);
     const fetchData = async () => {
