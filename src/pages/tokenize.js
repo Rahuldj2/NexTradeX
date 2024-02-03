@@ -5,7 +5,6 @@ import Footer from '@/components/Footer';
 import { getAuth,  onAuthStateChanged} from 'firebase/auth';
 import app from '../firebaseConfig';
 
-
 import { useMoralis } from "react-moralis";
 import { useWeb3Contract } from "react-moralis";
 import { contractABI, contract_address } from "../../contracts/NewContractDetails.js";
@@ -44,8 +43,8 @@ const Tokenize = () => {
     const [isCameraOpen, setIsCameraOpen] = useState(true);
     const [clearButton,setClearButton]= useState(false);
     const [user, setUser] = useState(null); // Initialize user state
-const [loading, setLoading] = useState(true); // Initialize loading state
-const [error, setError] = useState(null); 
+    const [loading, setLoading] = useState(true); // Initialize loading state
+    const [error, setError] = useState(null); 
     const auth = getAuth(app);
 
     // const videoRef = useRef(null);
@@ -66,36 +65,38 @@ const [error, setError] = useState(null);
         }, [auth]);
 
       
-            const getUserCamera =() =>
-            {
-                navigator.mediaDevices.getUserMedia({
-                    video:true
-                })
+      const getUserCamera =() =>
+      {
+          navigator.mediaDevices.getUserMedia({
+              video:true
+          })
 
-                .then((stream)=>{
-                    let video = videoRef.current
-                    video.srcObject =stream
-                    video.play()
-                    mediaStreamRef.current = stream;
-                }
-                )
-                .catch((error)=>{
-                    console.error(error)
-                }
-                )
-            }
+          .then((stream)=>{
+              let video = videoRef.current
+              video.srcObject =stream
+              video.play()
+              mediaStreamRef.current = stream;
+          }
+          )
+          .catch((error)=>{
+              console.error(error)
+          }
+          )
+      }
 
 
-            const handleInputChange = (e) => {
-              const { name, value } = e.target;
-              setFormData((prevFormData) => ({
-                ...prevFormData,
-                [name]: value,
-              }));
-            };
+      const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+        }));
+      };
 
 
             
+
+
 
     const {runContractFunction: tokenize}=useWeb3Contract({
       abi:contractABI,
@@ -103,64 +104,61 @@ const [error, setError] = useState(null);
       functionName:"tokenize",
       params:{"owner":account,"price":Price,"_propertyTitle":"Latest property","_category":formData.assetType,"_images":"test1","_propertyAddress":formData.location,"_description":"testonlinefrontend"}
   })
-            const handleSubmit = async () => {
 
-          
-            
-
-             console.log(formData)
-          const uid = user ? user.uid : null;
+    const handleSubmit = async () => {
+      console.log(formData)
+  const uid = user ? user.uid : null;
 
 
-          console.log(uid)
-          const formdetails = {
-            uid: uid,
-            asset_id: formData.assetId,
-            // Add other data needed for the API request
+  console.log(uid)
+  const formdetails = {
+    uid: uid,
+    asset_id: formData.assetId,
+    // Add other data needed for the API request
 
-          };
-      
-          try {
-            const response = await fetch('/api/assets/asset-user-map', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(formdetails),
-            });
-      
-            if (response.ok) {
-              const data = await response.json();
-      
-              // Do something with the data from the API response
-              console.log(data);
-              if (data.result) {
-                const propertyId= await tokenize()
-                setReturnedId(propertyId)
-                console.log(propertyId)
-                console.log(returnedId)
-              }
-              else
-              {
+  };
 
-              }
-      
-              // Continue with your form submission logic if needed
-              console.log('Form submitted!');
-            } else {
-              console.error('API request failed:', response.statusText);
-            }
-          } catch (error) {
-            console.error('Error during API request:', error);
-          }
-            // check if asset exists in the database
+  try {
+    const response = await fetch('/api/assets/asset-user-map', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formdetails),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+
+      // Do something with the data from the API response
+      console.log(data);
+      if (data.result) {
+        const transactionReceipt = await tokenize();
+        console.log(transactionReceipt)
+        
+        
+      }
+      else
+      {
+
+      }
+
+      // Continue with your form submission logic if needed
+      console.log('Form submitted!');
+    } else {
+      console.error('API request failed:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error during API request:', error);
+  }
+    // check if asset exists in the database
 
 
 
-            // Handle form submission logic here
-            // You can access the form data using the state variables (e.g., uploadedImages, uploadedSelfie, etc.)
-            console.log('Form submitted!');
-          };
+    // Handle form submission logic here
+    // You can access the form data using the state variables (e.g., uploadedImages, uploadedSelfie, etc.)
+    console.log('Form submitted!');
+  };
             // Add this function to close the camera
 const closeCamera = () => {
     let video = videoRef.current;
