@@ -3,6 +3,8 @@ export const contract_address="0x635eD4418Fdf219F8D8A9233AeAA10dc2d77Af0C"
 
 export const fetchPropertyTopic="0xca74bbd802be843092c6d6fb12f347f06c6f589dd46dde9786fcade7fc5c9bbc";
 
+export const fetchMarketTopic="0xca74bbd802be843092c6d6fb12f347f06c6f589dd46dde9786fcade7fc5c9bbc";
+
 export const contractABI=[
 	{
 		"inputs": [
