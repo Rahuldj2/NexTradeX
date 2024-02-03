@@ -7,7 +7,7 @@ export default async function handler(req, res) {
         return res.status(405).json({ message: 'Method Not Allowed' });
     }
 
-    const { asset_id } = req.body;
+    const { asset_id,solidity_id } = req.body;
     const assetId = parseInt(asset_id);
 
 try {
@@ -19,7 +19,8 @@ try {
       .update([
         
         {
-           tokenized:true
+           tokenized:true,
+           solidity_id:solidity_id
         },
       ]).eq('asset_id',assetId)
       .select();
