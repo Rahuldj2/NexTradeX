@@ -17,10 +17,10 @@ const myAssets = () => {
   const router = useRouter();
   const [form, setForm] = useState(false);
   const [asset, setAsset] = useState(assets);
-// const[badiList, setbadiList]= useState([]);
-const [userProperties, setUserProperties] = useState([]);
+  // const[badiList, setbadiList]= useState([]);
+  const [userProperties, setUserProperties] = useState([]);
 
-const [uniqueUserProperties, setUniqueUserProperties] = useState([]);
+  const [uniqueUserProperties, setUniqueUserProperties] = useState([]);
 
   const { enableWeb3, account, isWeb3Enabled } = useMoralis()
 
@@ -28,26 +28,25 @@ const [uniqueUserProperties, setUniqueUserProperties] = useState([]);
     console.log(uniqueUserProperties)
     //THIS IS THE FINAL OUTPUT
   }, [uniqueUserProperties]);
-  useEffect(() => { 
+  useEffect(() => {
     console.log("inside use effect")
     console.log(userProperties);
     const keyMap = new Map();
     const uniqueUserPropertiesList = [];
 
 
-    for (let i=0;i<userProperties.length;i++)
-    {
+    for (let i = 0; i < userProperties.length; i++) {
       const currentKey = userProperties[i][0];
       if (!keyMap.has(currentKey)) {
         // Add key to map and value=true
         keyMap.set(currentKey, true);
-  
+
         // Add the entire array to the list
         uniqueUserPropertiesList.push(userProperties[i]);
-  
+
         console.log("Found unique key:", currentKey);
         console.log("Corresponding array:", userProperties[i]);
-  
+
         // If you want to break out of the loop after finding the first unique key, uncomment the next line
         // break;
       }
@@ -68,36 +67,38 @@ const [uniqueUserProperties, setUniqueUserProperties] = useState([]);
         const response = await fetch('/api/swagger/fetchUserProperty');
         const data = await response.json();
         const userPropertiesArray = [];
-const res = data.result;
-console.log("res",res);
- for(let i=0;i<res.length;i++)
- {
-  if(res[i].data.properties.length>0)
-  {
-    for (let j = 0; j < res[i].data.properties.length; j++)
-    {
-      const adnarValaArray = res[i].data.properties[j];
-      if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
-        //make a global array where this adnarValaArray is completely pushed into this global array 
-        //which will be used to display the assets
-        userPropertiesArray.push(adnarValaArray);
-       
-      }
-    }
-    // const adnarValaArray = res[i].data.properties[0];
-    // if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
-    //   //make a global array where this adnarValaArray is completely pushed into this global array 
-    //   //which will be used to display the assets
-    //   userPropertiesArray.push(adnarValaArray);
-     
-    // }
+        const res = data.result;
+        //  console.log("res", res);
+        for (let i = 0; i < res.length; i++) {
+          if (res[i].data.properties.length > 0) {
+
+            for (let j = 0; j < res[i].data.properties.length; j++) {
+
+              const adnarValaArray = res[i].data.properties[j];
+              console.log("fds", account === adnarValaArray[1].toLowerCase())
+              if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
+                //make a global array where this adnarValaArray is completely pushed into this global array 
+                //which will be used to display the assets
 
 
-    
-  }
- 
- }
-  setUserProperties(userPropertiesArray);
+
+
+              }
+            }
+            // const adnarValaArray = res[i].data.properties[0];
+            // if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
+            //   //make a global array where this adnarValaArray is completely pushed into this global array 
+            //   //which will be used to display the assets
+            //   userPropertiesArray.push(adnarValaArray);
+
+            // }
+
+
+
+          }
+
+        }
+        setUserProperties(userPropertiesArray);
 
         return data;
       } catch (error) {
@@ -105,26 +106,26 @@ console.log("res",res);
       }
     };
 
-    
-     // console.log("nanamamamammamam")
-      // const templist = [];
-      // templist.push(adnarValaArray);
-      // setbadiList(templist);
 
-      
+    // console.log("nanamamamammamam")
+    // const templist = [];
+    // templist.push(adnarValaArray);
+    // setbadiList(templist);
+
+
     // console.log(adnarValaArray)
 
-//     if(adnarValaArray[1].toLowerCase()===account.toLowerCase()){
-//       // console.log("nanamamamammamam")
-// const templist=[];
-//  templist.push(adnarValaArray);
-//  setbadiList(templist);
-//     }
-//     console.log("badilist",badiList);
+    //     if(adnarValaArray[1].toLowerCase()===account.toLowerCase()){
+    //       // console.log("nanamamamammamam")
+    // const templist=[];
+    //  templist.push(adnarValaArray);
+    //  setbadiList(templist);
+    //     }
+    //     console.log("badilist",badiList);
 
     const fetchDataAndUpdateState = async () => {
       const data = await fetchData();
-    //  console.log("hereprinting", data.result);
+      //  console.log("hereprinting", data.result);
       // Now you can use 'data' in your component state or for further processing
     };
 
@@ -196,7 +197,7 @@ console.log("res",res);
 
         {/* loop through the assets and display them here  */}
 
-        {asset.map((item, index) => {
+        {uniqueUserProperties.map((item, index) => {
           return (
             <motion.div
               key={index}
@@ -205,21 +206,21 @@ console.log("res",res);
               whileHover="hover"
               className="bg-white p-3 rounded-2xl shadow-md border-2 border-black flex flex-col justify-between w-80 h-96 mt-10 "
             >
-              <img src={asset[index].image} />
+              <img src={asset[0].image} />
               <hr className="mb-2"></hr>
               <div className="text-gray-900 mb-4">
                 <ul className="list-disc list-inside">
                   <li style={{ color: '#71717a' }}>
-                    <span style={{ color: 'grey' }}> Asset Id:-   {asset[index].asset_id}</span>
+                    <span style={{ color: 'grey' }}> Asset Id:-   {uniqueUserProperties[index][0]}</span>
                   </li>
                   <li style={{ color: '#71717a' }}>
-                    <span style={{ color: 'grey' }}> Asset Type:-    {asset[index].asset_type}</span>
+                    <span style={{ color: 'grey' }}> Asset Type:-    {uniqueUserProperties[index][4]}</span>
                   </li>
                   <li style={{ color: '#71717a' }}>
-                    <span style={{ color: 'grey' }}> Asset Location:-  {asset[index].location}</span>
+                    <span style={{ color: 'grey' }}> Asset Location:-  {uniqueUserProperties[index][6]}</span>
                   </li>
                   <li style={{ color: '#71717a' }}>
-                    <span style={{ color: 'grey' }}>Bullet Point 4</span>
+                    <span style={{ color: 'grey' }}>{uniqueUserProperties[index][6]}</span>
                   </li>
                 </ul>
                 <div className="mt-6 mb-2 flex items-center justify-center">
