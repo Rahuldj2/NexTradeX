@@ -169,7 +169,7 @@ const handleClick = (item) => {
       <div className='bg-black text-xxl h-16 text-center font-serif font-bold'>Market Place</div>
 
       <div className='bg-white min-h-screen h-fit p-2 flex flex-wrap items-center justify-around'>
-        {uniqueUserProperties.map((item, index) => (
+        
         {uniqueUserProperties.map((item, index) => (
           <motion.div
             key={index}
