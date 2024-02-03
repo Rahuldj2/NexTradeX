@@ -14,25 +14,6 @@ import { contractABI, contract_address } from "../../contracts/NewContractDetail
 
 const BuyAssets = () => {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const [form, setForm] = useState(false);
 
   const [asset, setAsset] = useState(assets);
@@ -52,15 +33,14 @@ const BuyAssets = () => {
     },
   };
 
-    useEffect(()=>{
-      console.log("HI")
-      if (isWeb3Enabled)
-      {
-        console.log("saassa");
-      }
-      enableWeb3()
+  useEffect(() => {
+    console.log("HI")
+    if (isWeb3Enabled) {
+      console.log("saassa");
+    }
+    enableWeb3()
 
-  },[isWeb3Enabled])
+  }, [isWeb3Enabled])
 
   // useEffect=(()=>{
   //   console.log(upSaleProperties)
@@ -77,26 +57,23 @@ const BuyAssets = () => {
         const data = await response.json();
         // console.log(data);
         const res = data.result;
-      console.log("res",res);
-      const userPropertiesArray = [];
-        for(let i=0;i<res.length;i++)
-        {
-            if(res[i].data.properties.length>0)
-            {
-              for (let j = 0; j < res[i].data.properties.length; j++)
-              {
-                const adnarValaArray = res[i].data.properties[j];
-                userPropertiesArray.push(adnarValaArray);
-              }
-
-
-              
+        console.log("res", res);
+        const userPropertiesArray = [];
+        for (let i = 0; i < res.length; i++) {
+          if (res[i].data.properties.length > 0) {
+            for (let j = 0; j < res[i].data.properties.length; j++) {
+              const adnarValaArray = res[i].data.properties[j];
+              userPropertiesArray.push(adnarValaArray);
             }
-          
-          }
-          setSaleProperties(userPropertiesArray)
 
-                  // setAssets(data);
+
+
+          }
+
+        }
+        setSaleProperties(userPropertiesArray)
+
+        // setAssets(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -118,19 +95,18 @@ const BuyAssets = () => {
     const uniqueUserPropertiesList = [];
 
 
-    for (let i=0;i<upSaleProperties.length;i++)
-    {
+    for (let i = 0; i < upSaleProperties.length; i++) {
       const currentKey = upSaleProperties[i][0];
       if (!keyMap.has(currentKey)) {
         // Add key to map and value=true
         keyMap.set(currentKey, true);
-  
+
         // Add the entire array to the list
         uniqueUserPropertiesList.push(upSaleProperties[i]);
-  
+
         console.log("Found unique key:", currentKey);
         console.log("Corresponding array:", upSaleProperties[i]);
-  
+
         // If you want to break out of the loop after finding the first unique key, uncomment the next line
         // break;
       }
@@ -143,46 +119,46 @@ const BuyAssets = () => {
 
   }, [upSaleProperties]);
   // Assuming this function is triggered on a button click or some other event
-const handleClick = (item) => {
-  setForm(prevForm => !prevForm); // Toggle the form state
-  setAssetid(item.asset_id); // Set the asset ID
-  setAssetLocation(item.propertyAddress);
-  setAssetType(item.asset_type);
-  setgovtPrice(item.govt_price);
-};
+  const handleClick = (item) => {
+    setForm(prevForm => !prevForm); // Toggle the form state
+    setAssetid(item.asset_id); // Set the asset ID
+    setAssetLocation(item.propertyAddress);
+    setAssetType(item.asset_type);
+    setgovtPrice(item.govt_price);
+  };
 
   return (
     <div className='h-screen'>
       <div className='h-16'>
         <Navbar />
-        <div style={{marginTop:'200px'}}>
-        {
-            account ?(
-                <>
+        <div style={{ marginTop: '200px' }}>
+          {
+            account ? (
+              <>
                 <div>Connected to {account}</div>
                 {/* <button onClick={handleClick}>make a property</button> */}
-                </>
-            ):(<button onClick={async ()=>{await enableWeb3()}}>Connect</button>)
-        }
+              </>
+            ) : (<button onClick={async () => { await enableWeb3() }}>Connect</button>)
+          }
         </div>
       </div>
       <div className='bg-black text-xxl h-16 text-center font-serif font-bold'>Market Place</div>
 
       <div className='bg-white min-h-screen h-fit p-2 flex flex-wrap items-center justify-around'>
-        
+
         {uniqueUserProperties.map((item, index) => (
           <motion.div
             key={index}
             variants={cardVariants}
             initial="initial"
             whileHover="hover"
-            className={`v=bg-white p-3 rounded-2xl shadow-md border-2 border-black flex flex-col justify-between w-80 h-96 mt-10 ${form ? 'filter blur-md':''}`}
+            className={`v=bg-white p-3 rounded-2xl shadow-md border-2 border-black flex flex-col justify-between w-80 h-96 mt-10 ${form ? 'filter blur-md' : ''}`}
           >
             <img src={asset[0].image} alt={`Asset ${index + 1}`} />
             <hr className="mb-2"></hr>
             <div className="text-gray-900 mb-4">
               <ul className="list-disc list-inside">
-              <li style={{ color: '#0D0D0E' }}>
+                <li style={{ color: '#0D0D0E' }}>
                   <span style={{ color: 'grey' }}>{uniqueUserProperties[index][7]}</span>
                 </li>
                 <li style={{ color: '#71717a' }}>
@@ -194,10 +170,10 @@ const handleClick = (item) => {
                 <li style={{ color: '#71717a' }}>
                   <span style={{ color: 'grey' }}>Asset Location:- {uniqueUserProperties[index][6]}</span>
                 </li>
-                
+
               </ul>
               <div className="mt-6 mb-2 flex items-center justify-center">
-              
+
                 <button onClick={() => handleClick(item)}
                   className="font-medium bg-white border border-violet-900 text-violet-900 px-6 py-2 rounded-md hover:bg-violet-900 hover:text-white focus:outline-none focus:ring focus:border-blue-300"
                 >
@@ -208,9 +184,12 @@ const handleClick = (item) => {
           </motion.div>
         ))}
         {form ? (
-          <div className={styles.form}>
+          <div className={`${styles.form} `}>
             <div className='h-12 p-2 bg-red-200 text-center'>Up for sale form</div>
-            <FormComponent setForm={setForm} asset_id={passetsid} location={passet_location} asset_type={passettype}  govt_price={pgovt_price}/>
+            <div className='flex flex-col items-center justify-center h-full bg-red-900 '>
+              <FormComponent setForm={setForm} asset_id={passetsid} location={passet_location} asset_type={passettype} govt_price={pgovt_price} />
+
+            </div>
           </div>
         ) : (
           <></>
