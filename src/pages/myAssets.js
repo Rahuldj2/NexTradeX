@@ -17,34 +17,82 @@ const myAssets = () => {
   const router = useRouter();
   const [form, setForm] = useState(false);
   const [asset, setAsset] = useState(assets);
-const[badiList, setbadiList]= useState([]);
+// const[badiList, setbadiList]= useState([]);
+const [userProperties, setUserProperties] = useState([]);
+
+const [uniqueUserProperties, setUniqueUserProperties] = useState(new Set());
+
   const { enableWeb3, account, isWeb3Enabled } = useMoralis()
+
+  useEffect(() => { 
+    console.log("inside use effect")
+    console.log(userProperties);
+    // const uniquePropertiesSet = new Set(userProperties.map(arr => JSON.stringify(arr)));
+    // setUniqueUserProperties(uniquePropertiesSet);
+    // console.log("uniquePropertiesSet",uniqueUserProperties);
+  }, [userProperties]);
+
+
   useEffect(() => {
 
     const fetchData = async () => {
       try {
         const response = await fetch('/api/swagger/fetchUserProperty');
         const data = await response.json();
-
+        const userPropertiesArray = [];
 const res = data.result;
- for(let i=0;i<res?.length;i++){
-  if(res[0].data.properties.length>0){
-    const adnarValaArray = res[0].data.properties[0];
-    if(adnarValaArray[1]==account){
-const templist=[];
- templist.push(adnarValaArray);
- setbadiList(templist);
+console.log("res",res);
+ for(let i=0;i<res.length;i++)
+ {
+  if(res[i].data.properties.length>0)
+  {
+    for (let j = 0; j < res[i].data.properties.length; j++)
+    {
+      const adnarValaArray = res[i].data.properties[j];
+      if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
+        //make a global array where this adnarValaArray is completely pushed into this global array 
+        //which will be used to display the assets
+        userPropertiesArray.push(adnarValaArray);
+       
+      }
     }
-    console.log("badilist",badiList);
+    // const adnarValaArray = res[i].data.properties[0];
+    // if (account.toLowerCase() === adnarValaArray[1].toLowerCase()) {
+    //   //make a global array where this adnarValaArray is completely pushed into this global array 
+    //   //which will be used to display the assets
+    //   userPropertiesArray.push(adnarValaArray);
+     
+    // }
+
+
+    
   }
  
  }
+  setUserProperties(userPropertiesArray);
 
         return data;
       } catch (error) {
         console.error('Error:', error);
       }
     };
+
+    
+     // console.log("nanamamamammamam")
+      // const templist = [];
+      // templist.push(adnarValaArray);
+      // setbadiList(templist);
+
+      
+    // console.log(adnarValaArray)
+
+//     if(adnarValaArray[1].toLowerCase()===account.toLowerCase()){
+//       // console.log("nanamamamammamam")
+// const templist=[];
+//  templist.push(adnarValaArray);
+//  setbadiList(templist);
+//     }
+//     console.log("badilist",badiList);
 
     const fetchDataAndUpdateState = async () => {
       const data = await fetchData();
