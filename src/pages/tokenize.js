@@ -268,7 +268,7 @@ const Tokenize = () => {
 
   //take picture method 
   const takePicture = () => {
-    let width = 600;
+    let width = 1000;
     let height = width / (16 / 11);
     let photo = photoRef.current;
     let video = videoRef.current;
@@ -534,25 +534,26 @@ const Tokenize = () => {
               <video className={`container ${styles.selfie_video}`} ref={videoRef}></video>
               {/* <button onClick={takePicture} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform"
           type="button">Take Selfie</button> */}
-              <div className="flex  ">
-                <button onClick={takePicture} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform mt-3 mb-3" type="button">Take Selfie</button>
-                <button onClick={toggleCamera} className={`ml-4 ${isCameraOpen ? 'bg-red-500 hover:bg-red-700 mt-3 mb-3' : 'bg-green-500 hover:bg-green-700'} text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform`} type="button">
+              <div className="flex ">
+                <button onClick={takePicture} className="bg-blue-500 hover:bg-blue-700 h-12 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform mt-3 mb-3" type="button">Take Selfie</button>
+                <button onClick={toggleCamera} className={`ml-4 ${isCameraOpen ? 'bg-red-500 h-12 hover:bg-red-700 mt-3 mb-3' : 'bg-green-500 h-12 mt-3 mb-3 hover:bg-green-700'} text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform`} type="button">
                   {isCameraOpen ? 'Close Camera' : 'Open Camera'}
                 </button>
 
 
               </div>
-              {/* <button onClick={closeCamera} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform ml-4" type="button">Close Camera</button> */}
 
-              <canvas className={styles.selfie_video} ref={photoRef}></canvas>
-              {clearButton ?
-                <div>
-                  <button onClick={clearPicture} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform mt-3 mb-3" type="button">Clear</button>
-                  <button onClick={handleCapture} className="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform mt-3 mb-3" type="button">
-                    Capture
-                  </button>
-                </div>
-                : <></>}
+              <div className='w-full flex justify-center flex-col'>
+                <canvas className={`  ${styles.selfie_video}`} ref={photoRef}></canvas>
+                {clearButton ?
+                  <div>
+                    <button onClick={clearPicture} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform mt-3 mb-3" type="button">Clear</button>
+                    <button onClick={handleCapture} className="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform mt-3 mb-3" type="button">
+                      Capture
+                    </button>
+                  </div>
+                  : <></>}
+              </div>
 
             </div>
 
