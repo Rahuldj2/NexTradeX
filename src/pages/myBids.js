@@ -41,19 +41,12 @@ const MyBids = () => {
     //THIS IS THE FINAL OUTPUT
   }, [uniqueUserProperties]);
 
-  const { runContractFunction: getAllBids } = useWeb3Contract({
-    abi: contractABI,
-    contractAddress: contract_address,
-    functionName: "getAllBids",
-    params: { "owner": account,"propertyId":0 }
-  })
-
   useEffect(() => {
 
     
     const fetchData = async () => {
       try {
-        await getAllBids();
+        // await getAllBids();
         const response = await fetch('/api/swagger/fetchBids');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
