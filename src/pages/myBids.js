@@ -41,13 +41,6 @@ const MyBids = () => {
     //THIS IS THE FINAL OUTPUT
   }, [uniqueUserProperties]);
 
-  const { runContractFunction: getAllBids } = useWeb3Contract({
-    abi: contractABI,
-    contractAddress: contract_address,
-    functionName: "getAllBids",
-    params: { "owner": account,"propertyId":0 }
-  })
-
   useEffect(() => {
 
     

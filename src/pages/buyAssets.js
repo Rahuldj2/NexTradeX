@@ -186,9 +186,9 @@ const BuyAssets = () => {
           </motion.div>
         ))}
         {form ? (
-          <div className={`${styles.form} `}>
-            <div className='h-12 p-2 bg-red-200 text-center'>Up for sale form</div>
-            <div className='flex flex-col items-center justify-center h-full bg-red-900 '>
+          <div className={`${styles.form}`}>
+            <div className={`h-16 flex items-center justify-center text-2xl rounded-t-3xl font-semibold text-center text-white ${styles.bg}`}>Up for sale form</div>
+            <div className={`flex flex-col items-center justify-center h-full rounded-b-3xl text-white  ${styles.bg}`}>
               <FormComponent setForm={setForm} asset_id={passetsid} location={passet_location} asset_type={passettype} govt_price={pgovt_price} />
 
             </div>

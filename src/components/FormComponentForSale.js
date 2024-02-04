@@ -1,5 +1,5 @@
 // FormComponent.js
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMoralis } from "react-moralis";
 // import { useEffect, useState } from "react";
 import { useWeb3Contract } from "react-moralis";
@@ -7,7 +7,7 @@ import { contractABI, contract_address } from "../../contracts/NewContractDetail
 import BigNumber from 'bignumber.js';
 
 
-const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
+const FormComponent = ({ setForm, asset_id, location, asset_type, govt_price }) => {
     const { enableWeb3, account, isWeb3Enabled } = useMoralis()
     const [formData, setFormData] = useState({
         area: '',
@@ -18,19 +18,18 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
         agreeTerms: false,
     });
 
-    const[priceOffered,setPriceOffered]=useState();
+    const [priceOffered, setPriceOffered] = useState();
 
-    const[propId,setPropId]=useState(0);
+    const [propId, setPropId] = useState(0);
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log("HI")
-        if (isWeb3Enabled)
-        {
-          console.log(account);
+        if (isWeb3Enabled) {
+            console.log(account);
         }
         enableWeb3()
-  
-    },[isWeb3Enabled])
+
+    }, [isWeb3Enabled])
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData((prevData) => ({
@@ -44,9 +43,9 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
         abi: contractABI,
         contractAddress: contract_address,
         functionName: "fundInitial",
-        params: {"propertyId":asset_id},//state variable update
+        params: { "propertyId": asset_id },//state variable update
         msgValue: "100000000000000000"//state variable update
-      });
+    });
 
     //   useEffect(() => {
     //         console.log("priceOffered",priceOffered)
@@ -56,12 +55,12 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
 
     useEffect(() => {
         console.log("ye to hoja pls")
-        console.log("propId",propId)
-    },[propId]) 
+        console.log("propId", propId)
+    }, [propId])
 
 
 
-    const handleSubmit =async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Perform your form submission logic here
@@ -70,7 +69,7 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
         setPropId(asset_id)
 
         console.log(formData);
-                const maticAmountString = "0.1";
+        const maticAmountString = "0.1";
         const decimals = 18;
 
         // Convert the string to a BigNumber
@@ -97,7 +96,7 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
 
     return (
 
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto flex flex-col bg-red-200">
+        <form onSubmit={handleSubmit} className="w-3/4 h-fit p-12 mx-auto flex flex-col ">
 
 
             <div className="text-xl font-bold  bg-red-600">
@@ -132,12 +131,12 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
                 <label className="flex flex-col items-center gap-2">
                     Place Your Price :
                     <br />
-                    <input type="text" name="markedPrice" value={formData.markedPrice} onChange={handleChange} className="border p-1" />
+                    <input type="text" name="markedPrice" value={formData.markedPrice} onChange={handleChange} className="border p-1 text-black" />
                 </label>
             </div>
 
             <div className="mt-4">
-                <label className="block">
+                <label className=" flex justify-center">
                     <input type="checkbox" name="agreeTerms" checked={formData.agreeTerms} onChange={handleChange} className="mr-2" />
                     I agree to the terms and conditions
                 </label>
@@ -148,7 +147,7 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
 
                     Create Bid
                 </button>
-                <button onClick={() => { close }} className="bg-red-500 text-white p-2 px-4 ml-4 rounded-xl">Close</button>
+                <button onClick={() => { close }} className="text-white p-2 px-4 ml-4 rounded-xl bg-red-600">Close</button>
 
             </div>
         </form>

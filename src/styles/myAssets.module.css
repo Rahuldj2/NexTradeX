@@ -6,7 +6,6 @@
 }
 
 .form{
-    background-color: white;
 
     height: 75%;
     width: 40%;
@@ -14,4 +13,11 @@
     top: 52.5%;
     left: 50%;
     transform: translate(-50%, -50%);
+   
+    
+}
+
+.bg{
+    background-color: #041936;
+    
 }
