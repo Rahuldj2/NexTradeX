@@ -1,40 +1,85 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Decentralized Asset Exchange & Loan Platform
 
-## Getting Started
+## Team
 
-First, run the development server:
+### Team Members:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **[Aayush Arora](https://github.com/aayush12arora)**
+   - **Role:** Authentication Specialist
+   - **Contribution:** Integrated Firebase authentication for secure user access to the platform.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **[Rahul Jayaram](https://github.com/Rahuldj2)**
+   - **Role:** Blockchain Developer
+   - **Contribution:** Implemented smart contracts using Solidity, integrated with the Polygon blockchain.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+3. **[Rohit Tripathi](https://github.com/RohitTripathi1)**
+   - **Role:** Frontend Developer
+   - **Contribution:** Developed the user interface using Next.js, ensuring a seamless and intuitive user experience.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+4. **[Mayank Gupta](https://github.com/mayankgupta2023)**
+   - **Role:** Front End Developer
+   - **Contribution:** Developed the user interface using Next.js, ensuring a seamless and intuitive user experience.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Tech Used
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Frontend:** Next.js
+- **Blockchain:** Solidity, Polygon
+- **Authentication:** Firebase
 
-## Learn More
+## Idea Description
 
-To learn more about Next.js, take a look at the following resources:
+Our project aims to revolutionize traditional asset exchange and lending by leveraging blockchain technology. Users can tokenize real-world assets, such as vehicles and real estate, converting them into digital assets on the blockchain. These assets can then be traded seamlessly for cryptocurrencies, eliminating the need for traditional banking intermediaries. The platform also facilitates decentralized lending, empowering users to borrow and lend without the constraints of central financial institutions. This innovative solution promotes financial inclusivity, security, and transparency in the world of asset exchange and lending.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Core Functionality:
+Are you tired of the complexities and paperwork involved in real estate transactions? What if we told you there's a revolutionary solution that not only eliminates intermediaries but also guarantees transparency, security, and immutability?
+Introducing the "NexTradeX" – a groundbreaking smart contract developed in Solidity that transforms the way we buy and sell properties. Our solution leverages the power of blockchain technology to streamline the entire real estate transaction process.
+Seamless Property Verification:
+### Seamless Property Verification
 
-## Deploy on Vercel
+- Users input property details, seamlessly verified through a mock government database.
+- Trust the accuracy of information stored on the blockchain, eliminating the need for tedious paperwork and third-party verification.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Tokenization for Security
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Properties are tokenized and securely stored on the blockchain, ensuring tamper-proof records.
+- Buyers and sellers can transact with confidence, knowing that property details are cryptographically secured.
+
+### Trustless Transactions
+
+- Execute property transactions without the need for intermediaries.
+- Smart contracts enforce predefined rules, ensuring a fair and secure exchange of assets between parties.
+
+### Immutable Record-Keeping
+
+- Once recorded on the blockchain, property information is immutable. No one, not even the parties involved, can alter the details.
+- Guarantees the authenticity and permanence of the transaction history.
+
+## Benefits
+
+- **Efficiency:** Reduce the time and effort spent on paperwork and verification processes.
+- **Security:** Trust in the robust security features of blockchain technology.
+- **Transparency:** Every transaction is transparent and auditable, promoting trust among stakeholders.
+- **Cost-Effective:** Eliminate intermediaries and associated costs, making real estate transactions more accessible.
+
+## How to Run the Project
+
+### Prerequisites
+
+- Node.js and npm installed
+- Solidity development environment set up
+- Polygon blockchain account
+- Firebase project configured
+- Metamask account
+
+
+
+
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/your-project.git
+2. Do npm install in the terminal and run the command npm run dev 
