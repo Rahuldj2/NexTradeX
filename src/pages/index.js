@@ -86,6 +86,7 @@ const Home = () => {
                     Best Way to Buy and Sell with <span className="text-blue-400"> Cryptocurrency </span>Assets
                   </div>
                   <div className="text-white mt-4">
+                    <span className="font-bold text-amber-500">Nex Trade X</span> - Shaping a world where paperwork is history, fraud is fiction, and asset transfers are instant. Welcome to the future of real estate.
                     No more paper work, no more waiting, no fraud and no more hassle. Trade your assets with ease and security.
                   </div>
                   <button className="text-white py-2 px-4 border-white border-2 rounded-3xl mt-8 bg-indigo-950">
@@ -164,9 +165,8 @@ const Home = () => {
 
               <div className={`h-1/3 w-4/5 border-teal-500 border-2 m-auto mt-12 p-8 text-white rounded-3xl ${styles.he1}`}>
 
-                A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs. This is because paragraphs show a reader where the subdivisions of an essay begin and end, and thus help the reader see the organization of the essay and grasp its main points.
 
-                Paragraphs can contain many different kinds of information. A paragraph could contain a series of brief examples or a single long illustration of a general point. It might describe a place, character, or process; narrate a series of events; compare or contrast two or more things; classify items into categories; or describe causes and effects. Regardless of the kind of information they contain, all paragraphs share certain characteristics. One of the most important of these is a topic sentence.
+                <span className="text-amber-500 font-semibold">Nex Trade X</span> pioneers a transformative approach to real estate through asset tokenization. Our platform revolutionizes property ownership, enabling users to convert physical assets into digital tokens for seamless buying and selling. This innovative process enhances accessibility, liquidity, and fractional ownership, breaking down traditional barriers in the real estate market. With a commitment to minimizing paperwork, fraud, and time delays, Nex Trade X reshapes the landscape by merging blockchain technology with real-world assets. Join us in redefining the future of real estate transactions, where efficiency, security, and inclusivity converge to create a dynamic and accessible marketplace.
 
               </div>
 
