@@ -53,7 +53,7 @@ const MyBids = () => {
     
     const fetchData = async () => {
       try {
-        // await getAllBids();
+        await getAllBids();
         const response = await fetch('/api/swagger/fetchBids');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
