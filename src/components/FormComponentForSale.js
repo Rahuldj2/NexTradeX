@@ -18,6 +18,10 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
         agreeTerms: false,
     });
 
+    const[priceOffered,setPriceOffered]=useState();
+
+    const[propId,setPropId]=useState(0);
+
     useEffect(()=>{
         console.log("HI")
         if (isWeb3Enabled)
@@ -35,21 +39,38 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
         }));
     };
 
+
     const { runContractFunction: fundInitial } = useWeb3Contract({
         abi: contractABI,
         contractAddress: contract_address,
         functionName: "fundInitial",
-        params: {"propertyId":1},//state variable update
-        msgValue: "1"//state variable update
+        params: {"propertyId":asset_id},//state variable update
+        msgValue: "100000000000000000"//state variable update
       });
-    const handleSubmit = (e) => {
+
+    //   useEffect(() => {
+    //         console.log("priceOffered",priceOffered)
+    //     },[priceOffered])
+
+
+
+    useEffect(() => {
+        console.log("ye to hoja pls")
+        console.log("propId",propId)
+    },[propId]) 
+
+
+
+    const handleSubmit =async (e) => {
         e.preventDefault();
 
         // Perform your form submission logic here
         setForm(false);
+        console.log(asset_id)
+        setPropId(asset_id)
 
         console.log(formData);
-                const maticAmountString = "0.2";
+                const maticAmountString = "0.1";
         const decimals = 18;
 
         // Convert the string to a BigNumber
@@ -60,8 +81,14 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
 
         // Format the result as a string
         const weiAmountString = weiAmount.toFixed(0);
+        setPriceOffered(weiAmountString)
+        // console.log(priceOffered)
 
         console.log(weiAmountString);  // Output: "200000000000000000"
+
+        await fundInitial();
+        console.log("bid submitted successful")
+
     };
 
     const close = () => {
@@ -78,7 +105,7 @@ const FormComponent = ({ setForm ,asset_id,location,asset_type,govt_price}) => {
                 <br></br>
 
 
-                Government Price : {govt_price}
+                Description : {govt_price}
                 <br></br>
                 Asset Type : {asset_type}
                 <br></br>

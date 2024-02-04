@@ -5,6 +5,8 @@ export const fetchPropertyTopic="0xca74bbd802be843092c6d6fb12f347f06c6f589dd46dd
 
 export const fetchMarketTopic="0xca74bbd802be843092c6d6fb12f347f06c6f589dd46dde9786fcade7fc5c9bbc";
 
+export const fetchBidsTopic="0xe0dbc3226384ac2b8c8a255834c5eb313179aefdd33db44dd2e6208830cfb05f"
+
 export const contractABI=[
 	{
 		"inputs": [

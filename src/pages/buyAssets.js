@@ -121,10 +121,10 @@ const BuyAssets = () => {
   // Assuming this function is triggered on a button click or some other event
   const handleClick = (item) => {
     setForm(prevForm => !prevForm); // Toggle the form state
-    setAssetid(item.asset_id); // Set the asset ID
-    setAssetLocation(item.propertyAddress);
-    setAssetType(item.asset_type);
-    setgovtPrice(item.govt_price);
+    setAssetid(item[0]); // Set the asset ID
+    setAssetLocation(item[6]);
+    setAssetType(item[4]);
+    setgovtPrice(item[7]);
   };
 
     
@@ -176,7 +176,7 @@ const BuyAssets = () => {
               </ul>
               <div className="mt-6 mb-2 flex items-center justify-center">
 
-                <button onClick={() => handleClick(item)}
+                <button onClick={() => handleClick(uniqueUserProperties[index])}
                   className="font-medium bg-white border border-violet-900 text-violet-900 px-6 py-2 rounded-md hover:bg-violet-900 hover:text-white focus:outline-none focus:ring focus:border-blue-300"
                 >
                   Buy/Bid
