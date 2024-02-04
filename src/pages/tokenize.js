@@ -165,7 +165,7 @@ const Tokenize = () => {
     abi: contractABI,
     contractAddress: contract_address,
     functionName: "tokenize",
-    params: { "owner": account, "price": Price, "_propertyTitle": "Latest property", "_category": formData.assetType, "_images": "test1", "_propertyAddress": formData.location, "_description": "testonlinefrontend" }
+    params: { "owner": account, "price": Price, "_propertyTitle": "Latest property", "_category": formData.assetType, "_images": pimageurl, "_propertyAddress": formData.location, "_description": "testonlinefrontend" }
   })
 
   const handleSubmit = async () => {
@@ -199,13 +199,14 @@ const Tokenize = () => {
           // setReturnedId(propertyId)
           // console.log(propertyId)
           // console.log(returnedId)
+          await handleImageUpload(formData.assetId);
           const transactionMined = await tokenize();
           // console.log(transactionMined)
           const propertyIdResult = await fetchData();
           console.log(propertyIdResult.result.length)
 
           // setReturnedPropId(propertyIdResult.result.length);
-          await handleImageUpload(propertyIdResult.result.length);
+          
           await markTokenizetrue(propertyIdResult.result.length);
         }
         else {
