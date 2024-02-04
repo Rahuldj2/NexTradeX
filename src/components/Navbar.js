@@ -81,16 +81,43 @@ const Navbar = () => {
             <div></div>
           )}
         </div>
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
 
           {isLoggedIn && isSignedIn ? (
             // If the user is logged in, show "Logout" option
-            <button onClick={handleLogout}>Logout</button>
+
+            <button
+              className={` $  bg-red-500 hover:bg-red-700 text-white font-bold flex items-center justify-center w-20 h-8 p-4 rounded-2xl`}
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+
+
           ) : (
             // If the user is not logged in, show "Login" option
             <Link href="/login">Login</Link>
           )}
+        </div> */}
+        <div className="flex items-center">
+          {isLoggedIn && isSignedIn ? (
+            // If the user is logged in, show "Logout" option
+            <button
+              className="bg-red-500 hover:bg-red-700 text-white font-bold flex items-center justify-center w-20 h-8 p-4 rounded-2xl"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          ) : (
+            // If the user is not logged in, show "Login" option
+            <button
+              className="bg-green-500 hover:bg-green-700 text-white font-bold flex items-center justify-center w-20 h-8 p-4 rounded-2xl"
+            >
+              <Link href="/login">Login</Link>
+            </button>
+          )}
         </div>
+
       </div>
     </nav>
   );

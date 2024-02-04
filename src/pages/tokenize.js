@@ -210,6 +210,8 @@ const Tokenize = () => {
         }
         else {
 
+          alert("You are Not Authorised")
+
         }
 
         // Continue with your form submission logic if needed

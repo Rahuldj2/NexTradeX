@@ -33,19 +33,21 @@ const FormComponent = ({ setForm, asset_id, location, asset_type, govt_price }) 
 
     return (
 
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto flex flex-col bg-red-200">
+        <form onSubmit={handleSubmit} className="w-3/4 h-fit p-12 mx-auto flex flex-col ">
 
 
-            <div className="text-xl font-bold  bg-red-600">
-                Asset id : {asset_id}
-                <br></br>
+            <div className="text-xl font-bold  flex flex-col gap-2 p-4">
+
+                <div className='flex  justify-between   ' ><span>Asset id :</span><span>  {asset_id}</span></div>
 
 
-                Government Price : {govt_price}
-                <br></br>
-                Asset Type : {asset_type}
-                <br></br>
-                Asset Location : {location}
+
+                <div className='flex  justify-between    ' ><span>Government Price :</span><span>  {govt_price}</span></div>
+
+                <div className='flex  justify-between   '><span>Asset id :</span> <span> {asset_type}</span></div>
+
+
+                <div className='flex  justify-between   '><span>Asset Location :</span> <span>{location} </span></div>
             </div>
 
             {/* <div className="mt-4">
@@ -68,12 +70,12 @@ const FormComponent = ({ setForm, asset_id, location, asset_type, govt_price }) 
                 <label className="flex flex-col items-center gap-2">
                     Place Your Price :
                     <br />
-                    <input type="text" name="markedPrice" value={formData.markedPrice} onChange={handleChange} className="border p-1" />
+                    <input type="text" name="markedPrice" value={formData.markedPrice} onChange={handleChange} className="border p-1 text-black" />
                 </label>
             </div>
 
             <div className="mt-4">
-                <label className="block">
+                <label className=" flex justify-center">
                     <input type="checkbox" name="agreeTerms" checked={formData.agreeTerms} onChange={handleChange} className="mr-2" />
                     I agree to the terms and conditions
                 </label>
@@ -84,7 +86,7 @@ const FormComponent = ({ setForm, asset_id, location, asset_type, govt_price }) 
 
                     Create Bid
                 </button>
-                <button onClick={() => { close }} className="bg-red-500 text-white p-2 px-4 ml-4 rounded-xl">Close</button>
+                <button onClick={() => { close }} className="text-white p-2 px-4 ml-4 rounded-xl bg-red-600">Close</button>
 
             </div>
         </form>
