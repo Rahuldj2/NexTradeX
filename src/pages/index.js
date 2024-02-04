@@ -13,6 +13,7 @@ import building from "../assets/building.jpeg";
 import bitcoin from "../assets/bitcoin.jpg";
 import wallet from "../assets/wallet.jpeg";
 import bc from "../assets/nft.jpeg";
+import Link from "next/link";
 
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
@@ -87,7 +88,10 @@ const Home = () => {
                   <div className="text-white mt-4">
                     No more paper work, no more waiting, no fraud and no more hassle. Trade your assets with ease and security.
                   </div>
-                  <button className="text-white py-2 px-4 border-white border-2 rounded-3xl mt-8 bg-indigo-950">Working Button </button>
+                  <button className="text-white py-2 px-4 border-white border-2 rounded-3xl mt-8 bg-indigo-950">
+                    <Link href="/tokenize">Tokenize Asset</Link>
+
+                  </button>
                 </div>
 
 
