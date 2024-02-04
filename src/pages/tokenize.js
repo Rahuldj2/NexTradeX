@@ -206,7 +206,7 @@ const Tokenize = () => {
           console.log(propertyIdResult.result.length)
 
           // setReturnedPropId(propertyIdResult.result.length);
-          
+
           await markTokenizetrue(propertyIdResult.result.length);
         }
         else {
@@ -364,7 +364,7 @@ const Tokenize = () => {
   return (
     <div>
       <Navbar />
-      <div style={{ marginTop: '100px' }}>
+      {/* <div style={{ marginTop: '100px' }}>
         {
           account ? (
             <>
@@ -374,8 +374,8 @@ const Tokenize = () => {
           ) : (<button onClick={async () => { await enableWeb3() }}>Connect</button>)
         }
 
-      </div>
-      <div className="">
+      </div> */}
+      <div className="mt-20">
         <div className="w-full flex justify-center items-center bg-sky-50 ">
 
           <form className="w-1/2 h-fit mt-6">
@@ -444,9 +444,8 @@ const Tokenize = () => {
                   >
                     <option value="" disabled>Select Asset Type</option>
                     {/* Leave the options empty initially */}
-                    <option>Cryptocurrency</option>
-                    <option>Stocks</option>
-                    <option>Bonds</option>
+                    <option>Real Estate</option>
+
                   </select>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -521,9 +520,7 @@ const Tokenize = () => {
                 />
               </div>
 
-              <button onClick={handleImageSubmission} className={`ml-4 ${isCameraOpen ? 'bg-red-500 hover:bg-red-700 mt-3 mb-3' : 'bg-green-500 hover:bg-green-700'} text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform`} type="button">
-                image
-              </button>
+
             </div>
 
 
@@ -532,7 +529,7 @@ const Tokenize = () => {
             {/* selfie time  */}
 
             <div className="walletid flex flex-wrap -mx-3 mb-6">
-              <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 ml-3 mt-4'>Upload Selfie here</label>
+              <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 ml-3 mt-4'>Upload Your Image here</label>
 
               <video className={`container ${styles.selfie_video}`} ref={videoRef}></video>
               {/* <button onClick={takePicture} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform"

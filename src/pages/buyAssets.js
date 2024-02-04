@@ -127,26 +127,26 @@ const BuyAssets = () => {
     setgovtPrice(item[7]);
   };
 
-    
+
 
   return (
-    <div className='h-screen'>
+    <div className=''>
       <div className='h-16'>
         <Navbar />
-        <div style={{ marginTop: '200px' }}>
+        {/* <div className='mt-16'>
           {
             account ? (
               <>
                 <div>Connected to {account}</div>
-                {/* <button onClick={handleClick}>make a property</button> */}
+             
               </>
             ) : (<button onClick={async () => { await enableWeb3() }}>Connect</button>)
           }
-        </div>
+        </div> */}
       </div>
-      <div className='bg-black text-xxl h-16 text-center font-serif font-bold'>Market Place</div>
+      <div className='bg-black text-2xl flex justify-center items-center text-white h-16 mt-3 text-center font-serif font-bold'>Market Place</div>
 
-      <div className='bg-white min-h-screen h-fit p-2 flex flex-wrap items-center justify-around'>
+      <div className='bg-white  h-fit p-2 flex flex-wrap items-start justify-around'>
 
         {uniqueUserProperties.map((item, index) => (
           <motion.div
@@ -154,7 +154,7 @@ const BuyAssets = () => {
             variants={cardVariants}
             initial="initial"
             whileHover="hover"
-            className={`v=bg-white p-3 rounded-2xl shadow-md border-2 border-black flex flex-col justify-between w-80 h-96 mt-10 ${form ? 'filter blur-md' : ''}`}
+            className={`bg-white p-3 rounded-2xl mt-16 border-2 border-black flex flex-col justify-between w-80 h-96 ${styles.bs}  ${form ? 'filter blur-md' : ''}`}
           >
             <img src={asset[0].image} alt={`Asset ${index + 1}`} />
             <hr className="mb-2"></hr>
