@@ -140,7 +140,7 @@ const MyBids = () => {
         <Navbar />
       </div>
     <div className="min-h-screen flex pt-16 justify-center bg-gray-100">
-      <ListView data={data} />
+      <ListView data={myBids} />
     </div>
     </div>
   );
