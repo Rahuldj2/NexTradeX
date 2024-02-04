@@ -46,9 +46,16 @@ const BuyAssets = () => {
   //   console.log(upSaleProperties)
   // },[upSaleProperties])
 
+  const { runContractFunction: getAllPropertiesForSale } = useWeb3Contract({
+    abi: contractABI,
+    contractAddress: contract_address,
+    functionName: "getAllPropertiesForSale",
+  })
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        await getAllPropertiesForSale()
         const response = await fetch('/api/swagger/fetchMarketPlace');
         if (!response.ok) {
           throw new Error('Failed to fetch data');

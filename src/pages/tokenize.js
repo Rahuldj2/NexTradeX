@@ -18,7 +18,7 @@ const Tokenize = () => {
   useEffect(() => {
     console.log("HI")
     if (isWeb3Enabled) {
-      setPrice("100000000000000000")
+      console.log(account)
       return
     }
     enableWeb3()
@@ -199,12 +199,12 @@ const Tokenize = () => {
           // setReturnedId(propertyId)
           // console.log(propertyId)
           // console.log(returnedId)
-          await handleImageUpload(formData.assetId);
           const transactionMined = await tokenize();
           // console.log(transactionMined)
           const propertyIdResult = await fetchData();
           console.log(propertyIdResult.result.length)
-
+          
+          await handleImageUpload(formData.assetId);
           // setReturnedPropId(propertyIdResult.result.length);
 
           await markTokenizetrue(propertyIdResult.result.length);

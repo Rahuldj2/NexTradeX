@@ -32,7 +32,7 @@ const MyBids = () => {
     for (let i=0;i<uniqueUserProperties.length;i++)
     {
       console.log("namaste")
-      if(uniqueUserProperties[i][0].toLowerCase()===account.toLowerCase())
+      if(uniqueUserProperties[i][1].toLowerCase()===account.toLowerCase())
       {
         finalMyBids.push(uniqueUserProperties[i])
       }
@@ -41,12 +41,19 @@ const MyBids = () => {
     //THIS IS THE FINAL OUTPUT
   }, [uniqueUserProperties]);
 
+  const { runContractFunction: getAllBids } = useWeb3Contract({
+    abi: contractABI,
+    contractAddress: contract_address,
+    functionName: "getAllBids",
+    params: { "propertyId": 0 },
+  })
+
   useEffect(() => {
 
     
     const fetchData = async () => {
       try {
-        // await getAllBids();
+        await getAllBids();
         const response = await fetch('/api/swagger/fetchBids');
         if (!response.ok) {
           throw new Error('Failed to fetch data');

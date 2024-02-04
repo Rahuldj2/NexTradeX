@@ -61,15 +61,15 @@ const [uniqueUserProperties, setUniqueUserProperties] = useState([]);
     // setUniqueUserProperties(uniquePropertiesSet);
     // console.log("uniquePropertiesSet",uniqueUserProperties);
   }, [userProperties]);
-
+  const { runContractFunction: getUserProperties } = useWeb3Contract({
+    abi: contractABI,
+    contractAddress: contract_address,
+    functionName: "getUserProperties",
+    params: { "user": account }
+  })
 
   useEffect(() => {
-    const { runContractFunction: getUserProperties } = useWeb3Contract({
-      abi: contractABI,
-      contractAddress: contract_address,
-      functionName: "getUserProperties",
-      params: { "user": account }
-    })
+    
 
     const fetchData = async () => {
       try {

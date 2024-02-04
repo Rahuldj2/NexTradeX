@@ -1,9 +1,9 @@
 // export const contract_address="0xf61df0414cc6FDf9Fc98d6cfA93955eb4388f0be";
-export const contract_address="0x635eD4418Fdf219F8D8A9233AeAA10dc2d77Af0C"
+export const contract_address="0x9E5763c1D0Cc261b0c804Af1f284C9540322BB7a"
 
 export const fetchPropertyTopic="0xca74bbd802be843092c6d6fb12f347f06c6f589dd46dde9786fcade7fc5c9bbc";
 
-export const fetchMarketTopic="0xca74bbd802be843092c6d6fb12f347f06c6f589dd46dde9786fcade7fc5c9bbc";
+export const fetchMarketTopic="0x626682e5d6ce2442e2fdd0127b9388cd584a8d45b80f2e808da63f91c79455fb";
 
 export const fetchBidsTopic="0xe0dbc3226384ac2b8c8a255834c5eb313179aefdd33db44dd2e6208830cfb05f"
 
@@ -122,11 +122,6 @@ export const contractABI=[
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
 				"internalType": "uint256",
 				"name": "propertyId",
 				"type": "uint256"
@@ -137,8 +132,18 @@ export const contractABI=[
 			{
 				"components": [
 					{
+						"internalType": "uint256",
+						"name": "bidInd",
+						"type": "uint256"
+					},
+					{
 						"internalType": "address",
 						"name": "buyer",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "owner",
 						"type": "address"
 					},
 					{
@@ -713,8 +718,18 @@ export const contractABI=[
 			{
 				"components": [
 					{
+						"internalType": "uint256",
+						"name": "bidInd",
+						"type": "uint256"
+					},
+					{
 						"internalType": "address",
 						"name": "buyer",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "owner",
 						"type": "address"
 					},
 					{
