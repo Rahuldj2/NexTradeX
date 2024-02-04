@@ -156,7 +156,7 @@ const BuyAssets = () => {
             whileHover="hover"
             className={`v=bg-white p-3 rounded-2xl shadow-md border-2 border-black flex flex-col justify-between w-80 h-96 mt-10 ${form ? 'filter blur-md' : ''}`}
           >
-            <img src={asset[0].image} alt={`Asset ${index + 1}`} />
+            <img src={uniqueUserProperties[index][5]} alt={`Asset ${index + 1}`} />
             <hr className="mb-2"></hr>
             <div className="text-gray-900 mb-4">
               <ul className="list-disc list-inside">
