@@ -203,10 +203,12 @@ contract RealEstate {
         emit FundsRefunded(msg.sender, bid.amount, bid.propertyId);
     }
 
+
+    event ShowAllBids(Bid[] bids);
     function getAllBids(
         address owner,
         uint256 propertyId
-    ) external view returns (Bid[] memory) {
+    ) external returns (Bid[] memory) {
         // Check ownership and sale status
         require(
             properties[propertyId].owner == owner &&
@@ -237,7 +239,7 @@ contract RealEstate {
                 currentIndex += 1;
             }
         }
-
+        emit ShowAllBids(propertyBids);
         return propertyBids;
     }
 
@@ -308,7 +310,11 @@ contract RealEstate {
 
     //for front end
     //add additional logic that will fetch properties up for sale only
-    function getAllProperties() public view returns (Property[] memory) {
+
+    //emit this also
+    
+    event PropertiesAll(Property[] properties);
+    function getAllProperties() public returns (Property[] memory) {
         uint256 itemCount = propertyIndex;
         uint256 currentIndex = 0;
 
@@ -319,10 +325,13 @@ contract RealEstate {
             items[currentIndex] = currentItem;
             currentIndex += 1;
         }
+        emit PropertiesAll(items);
         return items;
     }
 
-    function getAllPropertiesForSale() public view returns (Property[] memory) {
+    //emit this
+    event PropertiesForSaleFetched(Property[] properties);
+    function getAllPropertiesForSale() public returns (Property[] memory) {
         uint256 itemCount = propertyIndex;
         uint256 currentIndex = 0;
 
@@ -345,8 +354,10 @@ contract RealEstate {
             result[i] = itemsForSale[i];
         }
 
+        emit PropertiesForSaleFetched(result);
         return result;
     }
+
 
     function getProperty(
         uint256 id
@@ -378,9 +389,10 @@ contract RealEstate {
         );
     }
 
+    event PropertiesFetched(Property[] properties);
     function getUserProperties(
         address user
-    ) external view returns (Property[] memory) {
+    ) public returns (Property[] memory) {
         uint256 totalItemCount = propertyIndex;
         uint256 itemCount = 0;
         uint256 currentIndex = 0;
@@ -402,6 +414,7 @@ contract RealEstate {
                 currentIndex += 1;
             }
         }
+        emit PropertiesFetched(items);
         return items;
     }
 }
