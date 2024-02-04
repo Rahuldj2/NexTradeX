@@ -1,7 +1,14 @@
 // FormComponent.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useMoralis } from "react-moralis";
+// import { useEffect, useState } from "react";
+import { useWeb3Contract } from "react-moralis";
+import { contractABI, contract_address } from "../../contracts/NewContractDetails.js";
+import BigNumber from 'bignumber.js';
+
 
 const FormComponent = ({ setForm, asset_id, location, asset_type, govt_price }) => {
+    const { enableWeb3, account, isWeb3Enabled } = useMoralis()
     const [formData, setFormData] = useState({
         area: '',
         governmentRice: '',
@@ -11,6 +18,18 @@ const FormComponent = ({ setForm, asset_id, location, asset_type, govt_price }) 
         agreeTerms: false,
     });
 
+    const [priceOffered, setPriceOffered] = useState();
+
+    const [propId, setPropId] = useState(0);
+
+    useEffect(() => {
+        console.log("HI")
+        if (isWeb3Enabled) {
+            console.log(account);
+        }
+        enableWeb3()
+
+    }, [isWeb3Enabled])
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData((prevData) => ({
@@ -19,12 +38,56 @@ const FormComponent = ({ setForm, asset_id, location, asset_type, govt_price }) 
         }));
     };
 
-    const handleSubmit = (e) => {
+
+    const { runContractFunction: fundInitial } = useWeb3Contract({
+        abi: contractABI,
+        contractAddress: contract_address,
+        functionName: "fundInitial",
+        params: { "propertyId": asset_id },//state variable update
+        msgValue: "100000000000000000"//state variable update
+    });
+
+    //   useEffect(() => {
+    //         console.log("priceOffered",priceOffered)
+    //     },[priceOffered])
+
+
+
+    useEffect(() => {
+        console.log("ye to hoja pls")
+        console.log("propId", propId)
+    }, [propId])
+
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
         // Perform your form submission logic here
         setForm(false);
+        console.log(asset_id)
+        setPropId(asset_id)
 
         console.log(formData);
+        const maticAmountString = "0.1";
+        const decimals = 18;
+
+        // Convert the string to a BigNumber
+        const maticAmount = new BigNumber(maticAmountString);
+
+        // Calculate the equivalent amount in wei
+        const weiAmount = maticAmount.times(new BigNumber(10).pow(decimals));
+
+        // Format the result as a string
+        const weiAmountString = weiAmount.toFixed(0);
+        setPriceOffered(weiAmountString)
+        // console.log(priceOffered)
+
+        console.log(weiAmountString);  // Output: "200000000000000000"
+
+        await fundInitial();
+        console.log("bid submitted successful")
+
     };
 
     const close = () => {
@@ -36,18 +99,16 @@ const FormComponent = ({ setForm, asset_id, location, asset_type, govt_price }) 
         <form onSubmit={handleSubmit} className="w-3/4 h-fit p-12 mx-auto flex flex-col ">
 
 
-            <div className="text-xl font-bold  flex flex-col gap-2 p-4">
-
-                <div className='flex  justify-between   ' ><span>Asset id :</span><span>  {asset_id}</span></div>
-
-
-
-                <div className='flex  justify-between    ' ><span>Government Price :</span><span>  {govt_price}</span></div>
-
-                <div className='flex  justify-between   '><span>Asset id :</span> <span> {asset_type}</span></div>
+            <div className="text-xl font-bold  bg-red-600">
+                Asset id : {asset_id}
+                <br></br>
 
 
-                <div className='flex  justify-between   '><span>Asset Location :</span> <span>{location} </span></div>
+                Description : {govt_price}
+                <br></br>
+                Asset Type : {asset_type}
+                <br></br>
+                Asset Location : {location}
             </div>
 
             {/* <div className="mt-4">

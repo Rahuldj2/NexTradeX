@@ -238,7 +238,7 @@ console.log("res",res);
               whileHover="hover"
               className="bg-white p-3 rounded-2xl shadow-md border-2 border-black flex flex-col justify-between w-80 h-96 mt-10 "
             >
-              <img src={asset[0].image} />
+              <img src={uniqueUserProperties[index][5]} />
               <hr className="mb-2"></hr>
               <div className="text-gray-900 mb-4">
                 <ul className="list-disc list-inside">
