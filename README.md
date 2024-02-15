@@ -10,7 +10,7 @@
 
 2. **[Rahul Jayaram](https://github.com/Rahuldj2)**
    - **Role:** Blockchain Developer
-   - **Contribution:** Implemented smart contracts using Solidity, integrated with the Polygon blockchain.
+   - **Contribution:** Implemented smart contracts using Solidity, integrated with the Polygon Testnet.
 
 3. **[Rohit Tripathi](https://github.com/RohitTripathi1)**
    - **Role:** Frontend Developer
